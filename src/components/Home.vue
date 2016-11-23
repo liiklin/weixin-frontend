@@ -10,10 +10,10 @@
     <div id="header">
         <div flex="main:center cross:center">
             <div class="user-icon" v-link="{ path: 'user' }">
-                <img v-bind:src="view.userIcon" alt="" />
+                <img v-bind:src="view.wxPhoto" alt="" />
             </div>
         </div>
-        <span id="userName" flex="main:center cross:center" v-text="view.userName"></span>
+        <span id="userName" flex="main:center cross:center" v-text="view.name"></span>
     </div>
     <div class="task-content" flex="main:center cross:center">
         <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'all' }">
@@ -47,8 +47,8 @@
             <span flex="main:center cross:center">我的简报</span>
         </div>
         <div style="padding: 10px 0;" flex="dir:left main:center cross:center">
-            <div class="briefing-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'my' }">
-                <div flex-box="1">
+            <div class="briefing-item" flex-box="2" flex="main:center cross:center" v-link="{ name: 'my' }">
+                <div style="max-width:150px;" flex-box="1">
                     <circle :percent="getTaskPrecent" :stroke-width="5" stroke-color="#eb7024">
                         <span>{{view.completedTask}}个</span>
                     </circle>
@@ -56,15 +56,15 @@
                 </div>
             </div>
             <div class="briefing-item" flex-box="3" flex="main:center cross:center" v-link="{ name: 'score' }">
-                <div flex-box="1">
+                <div style="max-width:200px;" flex-box="1">
                     <circle :percent="100" :stroke-width="5" stroke-color="#4a8efc">
                         <span>{{view.score}}分</span>
                     </circle>
                     <span flex="dir:left main:center cross:center" style="font-size: 12px;">获得奖励</span>
                 </div>
             </div>
-            <div class="briefing-item" flex-box="1" flex="main:center cross:center">
-                <div flex-box="1">
+            <div class="briefing-item" flex-box="2" flex="main:center cross:center">
+                <div style="max-width:150px;" flex-box="1">
                     <circle :percent="getRatePrecent" :stroke-width="5" stroke-color="#fb5b52">
                         <span>{{view.rate * 100}}%</span>
                     </circle>
@@ -93,7 +93,7 @@ const NAME = 'home'
 import Tool from '../Tool'
 import mixins from '../mixins'
 import store from '../vuex/store'
-import wx from 'weixin-js-sdk' //微信jssdk
+import _ from 'underscore' //underscore
 
 import {
     Circle
@@ -108,7 +108,6 @@ export default {
     mixins: [mixins(NAME)],
     route: {
         data() {
-                console.log(wx)
                 this.getUserInfo()
             },
             canReuse({
@@ -124,11 +123,31 @@ export default {
         getUserInfo() {
             if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
-            let id = '402881e756ffea570156ffeaa66d0000'
-
-            this.breakAjax = Tool.get('SysUser/get', {'id[]':id}, (data) => {
+            // let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
+            console.log(this.$route.query)
+            let wxId = this.$route.query.id
+            this.breakAjax = Tool.get('WxBus/getUserinfo', {
+                wxId
+            }, (data) => {
                 if (data) {
-                    this.GET_DATA_VIEW(data)
+                    let score = data.myTotalScore
+                    let rate = data.beatRatio
+                    let myTasks = data.myTaskList
+                    let myTotalRedPacket = data.myTotalRedPacket
+                    let totalTask = myTasks.length
+                    let completedTask = _.filter(myTasks,(task)=>{
+                      return task.state == 1
+                    }).length
+
+                    let user = _.extend(data.user, {
+                        myTotalRedPacket,
+                        score,
+                        totalTask,
+                        completedTask,
+                        rate
+                    })
+                    this.SIGNIN(user)
+                    this.GET_DATA_VIEW(user)
                 } else {
                     this.GET_DATA_ERROR({
                         loadTip: '用户不存在'

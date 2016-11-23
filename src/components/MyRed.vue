@@ -8,7 +8,7 @@
 
 <div>
     <div>
-        <x-header style="background-color:#000;" :left-options={showBack:true,backText:'返回',preventGoBack:true} @on-click-back="goBack">我的红包</x-header>
+        <x-header style="background-color:#000;" :left-options={showBack:true,backText:"返回",preventGoBack:true} @on-click-back="goBack">我的红包</x-header>
     </div>
     <div>
         <div flex="dir:top main:center cross:center" style="padding-top:46px;height:150px;background-color:#7998ab;color:#fff;">
@@ -16,7 +16,7 @@
                 <i class="iconfont icon-align-justify" style="font-size: 50px;"></i>
             </div>
             <div>
-                <span>共收到&nbsp;</span><span v-text="myred.total"></span><span>&nbsp;元</span>
+                <span>共收到&nbsp;</span><span v-text="user.myTotalRedPacket"></span><span>&nbsp;元</span>
             </div>
         </div>
         <div style="padding: 5px;">
@@ -84,19 +84,26 @@ export default {
     },
     methods: {
         getTaskLists() {
-            if (this.breakAjax) return false //请求未结束，防止重复请求
-            this.GET_DATA_START()
+                if (this.breakAjax) return false //请求未结束，防止重复请求
+                this.GET_DATA_START()
+                // let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
+                let wxId = this.$route.query.id
 
-            this.breakAjax = Tool.get(`/red`, {}, (data) => {
-                this.SET_CUSTOM_KEY({
-                    myred: data
+                this.breakAjax = Tool.get(`WxBus/myRedPacketList`, {
+                    wxId
+                }, (data) => {
+                    this.SET_CUSTOM_KEY({
+                        myred: data
+                    })
+                    this.PULL_PAGE_LIST_PUSH(data.details)
+                }, this.GET_DATA_ERROR)
+            },
+            goBack() {
+                this.$router.go({
+                    name: 'home',
+                    replace: true
                 })
-                this.PULL_PAGE_LIST_PUSH(data.details)
-            }, this.GET_DATA_ERROR)
-        },
-        goBack(){
-          this.$router.go({ name: 'home',replace: true})
-        }
+            }
     },
     computed: {
 

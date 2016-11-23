@@ -18,7 +18,7 @@ Tool.get = (url, query = {}, success = () => { }, error = () => { }, end = () =>
         let data = JSON.parse(res.text)
         if(!data.success)error({err:data.msg})//错误信息
         if (data && (Tool.isJson(data) || Tool.isArray(data))) {
-            success(data)
+            success(data.data)
         } else {
             error({})
         }
@@ -31,10 +31,14 @@ Tool.get = (url, query = {}, success = () => { }, error = () => { }, end = () =>
 
 Tool.post = (url, body = {}, success = () => { }, error = () => { }, end= () => {}) => {
     var bool = true //true允许回调方法，false不再执行回调
-    ajax('POST', config.target + url).send(body).end((err, res = {}) => {
+    ajax('POST', config.target + url)
+    .set('Content-Type', 'application/x-www-form-urlencoded')
+    .send(body)
+    .end((err, res = {}) => {
         if(!bool) return //防止继续执行回调
-        if (res.body && Tool.isJson(res.body)) {
-            success(res.body)
+        let data = JSON.parse(res.text)
+        if (data && (Tool.isJson(data) || Tool.isArray(data))) {
+            success(data)
         } else {
             error({})
         }

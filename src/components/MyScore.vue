@@ -16,7 +16,7 @@
                 <i class="iconfont icon-align-justify" style="font-size: 50px;"></i>
             </div>
             <div>
-                <span>积分&nbsp;</span><span v-text="myscore.score"></span>
+                <span>积分&nbsp;</span><span v-text="user.score"></span>
             </div>
         </div>
         <div style="padding: 5px;">
@@ -25,11 +25,11 @@
         <div>
             <div class="scoreDetail" v-for="score in list" flex="main:left box:last">
                 <div flex="dir:top" class="detail">
-                    <span v-text="score.title"></span>
-                    <span>{{score.createdAt | formatDate}}</span>
+                    <span v-text="score.name | prizesTitle score.getRule"></span>
+                    <span>{{score.createDate | formatDate}}</span>
                 </div>
                 <div flex="main:center cross:center">
-                    <span class="changeScore">{{score.change | formatNumbers}}</span>
+                    <span class="changeScore">{{score.content | formatNumbers}}</span>
                 </div>
             </div>
         </div>
@@ -83,12 +83,13 @@ export default {
         getTaskLists() {
             if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
+            // let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
+            let wxId = this.$route.query.id
 
-            this.breakAjax = Tool.get(`/score`, {}, (data) => {
-                this.SET_CUSTOM_KEY({
-                    myscore: data
-                })
-                this.PULL_PAGE_LIST_PUSH(data.scoreDetail)
+            this.breakAjax = Tool.get(`WxBus/myScoreList`, {
+                wxId
+            }, (data) => {
+                this.GET_DATA_LIST(data)
             }, this.GET_DATA_ERROR)
         },
         goBack(){

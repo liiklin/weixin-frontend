@@ -18,8 +18,8 @@ import './iconfont/iconfont.css' //web字体图标
 Vue.use(VueRouter)
 Vue.use(VueLazyload)
 
-// const FastClick = require('fastclick')
-// FastClick.attach(document.body)
+const FastClick = require('fastclick')
+FastClick.attach(document.body)
 
 Object.keys(filter).forEach(k => Vue.filter(k, filter[k])) //注册过滤器
 
@@ -71,11 +71,11 @@ router.afterEach(() => {
 //   to,
 //   next
 // }) => {
-//   if (to.auth && !app.store.state.user.id) { //验证用户是否登录，用户没有登录则强制跳转到登录页面
-//     router.replace('/signin')
-//   } else {
-//     next()
-//   }
+  // if (to.auth && !app.store.state.user.id) { //验证用户是否登录，用户没有登录则强制跳转到登录页面
+  //   router.replace('/signin')
+  // } else {
+  //   next()
+  // }
 // })
 
 // router.start(Vue.extend({}), '#main')
