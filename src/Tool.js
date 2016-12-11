@@ -13,6 +13,7 @@ const Tool = {}
  */
 Tool.get = (url, query = {}, success = () => { }, error = () => { }, end = () => {}) => {
     var bool = true //true允许回调方法，false不再执行回调
+    console.log(query)
     ajax('GET', config.target + url).query(query).end((err, res = {}) => {
         if(!bool) return //防止继续执行回调
         let data = JSON.parse(res.text)

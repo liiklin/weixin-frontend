@@ -68,8 +68,8 @@ export default {
             if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
             let baseImgUrl = "http://weixin.7ipr.com/Repository/weixin/"
-            // let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
-            let wxId = this.$route.query.id
+            let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
+            // let wxId = this.$route.query.id
 
             this.breakAjax = Tool.get(`WxBus/getUserinfo`, {
                 wxId

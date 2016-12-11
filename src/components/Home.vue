@@ -123,9 +123,9 @@ export default {
         getUserInfo() {
             if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
-            // let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
-            console.log(this.$route.query)
-            let wxId = this.$route.query.id
+            let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
+            // console.log(this.$route.query)
+            // let wxId = this.$route.query.id
             this.breakAjax = Tool.get('WxBus/getUserinfo', {
                 wxId
             }, (data) => {
