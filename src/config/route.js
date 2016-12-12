@@ -9,42 +9,49 @@ import myTasks from '../components/MyTasks'
 
 export default {
   '/': {
-    // auth: true,
-    component: home
-  },
-  '/home': {
-    // auth: true,
-    name: 'home',
-    component: home
-  },
-  '/tasks': {
-    // auth: true,
-    component: tasks,
-    name: 'taks',
+    component: (resolve) => {
+      require(['../app.vue'], resolve)
+    },
     subRoutes: {
-      '/all': {
-        name: 'all',
-        component: allTasks
+      '/': {
+        // auth: true,
+        component: home
       },
-      '/my': {
-        name: 'my',
-        component: myTasks
+      '/home': {
+        // auth: true,
+        name: 'home',
+        component: home
+      },
+      '/tasks': {
+        // auth: true,
+        component: tasks,
+        name: 'taks',
+        subRoutes: {
+          '/all': {
+            name: 'all',
+            component: allTasks
+          },
+          '/my': {
+            name: 'my',
+            component: myTasks
+          }
+        }
+      },
+      '/user': {
+        // auth: true,
+        name: 'user',
+        component: user
+      },
+      '/score': {
+        // auth: true,
+        name: 'score',
+        component: score
+      },
+      '/red': {
+        // auth: true,
+        name: 'red',
+        component: red
       }
     }
-  },
-  '/user': {
-    // auth: true,
-    name: 'user',
-    component: user
-  },
-  '/score': {
-    // auth: true,
-    name: 'score',
-    component: score
-  },
-  '/red': {
-    // auth: true,
-    name: 'red',
-    component: red
   }
 }
