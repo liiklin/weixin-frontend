@@ -1,5 +1,5 @@
 import home from '../components/Home'
-import tasks from '../components/TaskCenter'
+// import tasks from '../components/TaskCenter'
 import user from '../components/UserCenter'
 import score from '../components/MyScore'
 import red from '../components/MyRed'
@@ -24,8 +24,10 @@ export default {
       },
       '/tasks': {
         // auth: true,
-        component: tasks,
-        name: 'taks',
+        name: 'tasks',
+        component: (resolve) => {
+          require(['../components/TaskCenter'], resolve)
+        },
         subRoutes: {
           '/all': {
             name: 'all',

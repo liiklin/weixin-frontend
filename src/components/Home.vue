@@ -29,14 +29,14 @@
                 <span flex="main:center cross:center">积分商城</span>
             </div>
         </div>
-        <div class="task-item" flex-box="1" flex="main:center cross:center">
-            <div class="task-icon" flex="dir:top main:center cross:center" v-link="{ name: 'score' }">
+        <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'score' }">
+            <div class="task-icon" flex="dir:top main:center cross:center">
                 <img src="http://placeholder.qiniudn.com/40x40/4CD964/fff" alt="" />
                 <span flex="main:center cross:center">我的积分</span>
             </div>
         </div>
-        <div class="task-item" flex-box="1" flex="main:center cross:center">
-            <div class="task-icon" flex="dir:top main:center cross:center" v-link="{ name: 'red' }">
+        <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'red' }">
+            <div class="task-icon" flex="dir:top main:center cross:center">
                 <img src="http://placeholder.qiniudn.com/40x40/4CD964/fff" alt="" />
                 <span flex="main:center cross:center">我的红包</span>
             </div>
@@ -123,10 +123,10 @@ export default {
         getUserInfo() {
             if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
-            console.log(`this.user.id${this.user.id}`)
-            console.log(`this.$route.query${JSON.stringify(this.$route.query)}`)
-            console.log(`this.$route.params${JSON.stringify(this.$route.params)}`)
-            console.log(`_.has(this.$route.query,'id')${_.has(this.$route.query,'id')}`)
+            // console.log(`this.user.id${this.user.id}`)
+            // console.log(`this.$route.query${JSON.stringify(this.$route.query)}`)
+            // console.log(`this.$route.params${JSON.stringify(this.$route.params)}`)
+            // console.log(`_.has(this.$route.query,'id')${_.has(this.$route.query,'id')}`)
             let wxId = this.user.id
             if (_.has(this.$route.query,'id')) {
               wxId = this.$route.query.id
