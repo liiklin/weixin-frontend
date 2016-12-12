@@ -12,6 +12,10 @@ export default {
     // auth: true,
     component: home
   },
+  '/': {
+    // auth: true,
+    component: home
+  },
   '/home': {
     // auth: true,
     name: 'home',
