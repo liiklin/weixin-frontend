@@ -24,8 +24,8 @@ FastClick.attach(document.body)
 Object.keys(filter).forEach(k => Vue.filter(k, filter[k])) //注册过滤器
 
 const router = new VueRouter({
-  // hashbang: false,
-  // history: process.env.NODE_ENV !== 'production',
+  hashbang: false,
+  history: true,
   transitionOnLoad: false
 })
 
@@ -71,11 +71,11 @@ router.afterEach(() => {
 //   to,
 //   next
 // }) => {
-  // if (to.auth && !app.store.state.user.id) { //验证用户是否登录，用户没有登录则强制跳转到登录页面
-  //   router.replace('/signin')
-  // } else {
-  //   next()
-  // }
+//   if (to.auth && !app.store.state.user.id) { //验证用户是否登录，用户没有登录则强制跳转到登录页面
+//     router.replace('/signin')
+//   } else {
+//     next()
+//   }
 // })
 
 // router.start(Vue.extend({}), '#main')
