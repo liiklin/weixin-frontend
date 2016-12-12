@@ -1,5 +1,5 @@
 import home from '../components/Home'
-// import tasks from '../components/TaskCenter'
+import tasks from '../components/TaskCenter'
 import user from '../components/UserCenter'
 import score from '../components/MyScore'
 import red from '../components/MyRed'
@@ -13,6 +13,9 @@ export default {
       require(['../app.vue'], resolve)
     },
     subRoutes: {
+      '*': {
+        component: home
+      },
       '/': {
         // auth: true,
         component: home
@@ -22,19 +25,20 @@ export default {
         name: 'home',
         component: home
       },
-      '/tasks': {
-        // auth: true,
-        name: 'tasks',
-        component: (resolve) => {
-          require(['../components/TaskCenter'], resolve)
-        },
+      '/tasks/all': {
+        component: allTasks,
+        name: 'all',
         subRoutes: {
-          '/all': {
-            name: 'all',
+          '/': {
             component: allTasks
-          },
-          '/my': {
-            name: 'my',
+          }
+        }
+      },
+      '/tasks/my': {
+        component: allTasks,
+        name: 'my',
+        subRoutes: {
+          '/': {
             component: myTasks
           }
         }
