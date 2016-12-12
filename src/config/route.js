@@ -8,10 +8,6 @@ import allTasks from '../components/AllTasks'
 import myTasks from '../components/MyTasks'
 
 export default {
-  '*': {
-    // auth: true,
-    component: home
-  },
   '/': {
     // auth: true,
     component: home
