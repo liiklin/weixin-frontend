@@ -24,8 +24,8 @@ FastClick.attach(document.body)
 Object.keys(filter).forEach(k => Vue.filter(k, filter[k])) //注册过滤器
 
 const router = new VueRouter({
-  hashbang: false,
-  history: true,
+  hashbang: true,
+  // history: true,
   transitionOnLoad: false
 })
 

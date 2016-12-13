@@ -25,20 +25,19 @@ export default {
         name: 'home',
         component: home
       },
-      '/tasks/all': {
-        component: allTasks,
-        name: 'all',
+      '/tasks': {
+        component: tasks,
+        name: 'tasks',
         subRoutes: {
           '/': {
             component: allTasks
-          }
-        }
-      },
-      '/tasks/my': {
-        component: allTasks,
-        name: 'my',
-        subRoutes: {
-          '/': {
+          },
+          '/all': {
+            name:'all',
+            component: allTasks
+          },
+          '/my': {
+            name:'my',
             component: myTasks
           }
         }
