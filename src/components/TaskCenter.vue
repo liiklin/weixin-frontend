@@ -40,11 +40,6 @@ import Tool from '../Tool'
 import mixins from '../mixins'
 import store from '../vuex/store'
 
-// const urlObj = {
-//     '全部任务': 'all',
-//     '我的任务': 'my'
-// }
-
 const urlObj = {
     'all': '全部任务',
     'my': '我的任务'

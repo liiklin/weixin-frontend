@@ -6,7 +6,7 @@ import {
 } from 'vuex-router-sync'
 
 import * as filter from './filter' //自定义过滤器
-import app from './App' //app
+import app from './app' //app
 import route from './config/route' //路由配置
 import store from './vuex/store' //vuex
 
