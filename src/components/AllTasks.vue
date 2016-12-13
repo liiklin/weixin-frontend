@@ -121,7 +121,7 @@ export default {
         getTaskLists() {
                 if (this.breakAjax) return false //请求未结束，防止重复请求
                 this.GET_DATA_START()
-                let baseImgUrl = "http://weixin.7ipr.com/weixin/"
+                let baseImgUrl = "http://weixin.7ipr.com/Repository/"
                 // let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
                 let wxId = this.user.id
                 if (_.has(this.$route.query,'id')) {

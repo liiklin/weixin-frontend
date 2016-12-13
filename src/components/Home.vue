@@ -124,10 +124,10 @@ export default {
         getUserInfo() {
             if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
-            console.log(`this.user.id${this.user.id}`)
-            console.log(`this.$route.query${JSON.stringify(this.$route.query)}`)
-            console.log(`this.$route.params${JSON.stringify(this.$route.params)}`)
-            console.log(`_.has(this.$route.query,'id')${_.has(this.$route.query,'id')}`)
+            // console.log(`this.user.id${this.user.id}`)
+            // console.log(`this.$route.query${JSON.stringify(this.$route.query)}`)
+            // console.log(`this.$route.params${JSON.stringify(this.$route.params)}`)
+            // console.log(`_.has(this.$route.query,'id')${_.has(this.$route.query,'id')}`)
             let wxId = this.user.id
             if (_.has(this.$route.query,'id')) {
               wxId = this.$route.query.id
