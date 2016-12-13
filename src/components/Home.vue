@@ -14,31 +14,36 @@
             </div>
         </div>
         <span id="userName" flex="main:center cross:center" v-text="view.name"></span>
+        <div class="sign" @click="doSign">
+          <div class="vux-reddot-border">
+            <span>签到</span>
+          </div>
+        </div>
     </div>
     <div class="task-content" flex="main:center cross:center">
         <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'all' }">
             <div class="task-icon" flex="dir:top main:center cross:center">
-                <img src="http://placeholder.qiniudn.com/40x40/4CD964/fff" alt="" />
+                <img src="../assets/icon1.png" alt="" />
                 <div class="notice" v-show="showRedPointer"></div>
                 <span flex="main:center cross:center">任务中心</span>
             </div>
         </div>
         <div class="task-item" flex-box="1" flex="main:center cross:center">
             <div class="task-icon" flex="dir:top main:center cross:center">
-                <img src="http://placeholder.qiniudn.com/40x40/4CD964/fff" alt="" />
+                <img src="../assets/icon2.png" alt="" />
                 <span flex="main:center cross:center">积分商城</span>
             </div>
         </div>
         <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'score' }">
             <div class="task-icon" flex="dir:top main:center cross:center">
-                <img src="http://placeholder.qiniudn.com/40x40/4CD964/fff" alt="" />
+                <img src="../assets/icon3.png" alt="" />
                 <span flex="main:center cross:center">我的积分</span>
             </div>
         </div>
         <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'red' }">
             <div class="task-icon" flex="dir:top main:center cross:center">
-                <img src="http://placeholder.qiniudn.com/40x40/4CD964/fff" alt="" />
-                <span flex="main:center cross:center">我的红包</span>
+                <img src="../assets/icon4.png" alt="" />
+                <span flex="main:center cross:center">我的邀请</span>
             </div>
         </div>
     </div>
@@ -49,26 +54,26 @@
         <div style="padding: 10px 0;" flex="dir:left main:center cross:center">
             <div class="briefing-item" flex-box="2" flex="main:center cross:center" v-link="{ name: 'my' }">
                 <div style="max-width:150px;" flex-box="1">
-                    <circle :percent="getTaskPrecent" :stroke-width="5" stroke-color="#eb7024">
+                    <circle :percent="getTaskPrecent" :trail-width=5 :stroke-width="5" stroke-color="#f8b707">
                         <span>{{view.completedTask}}个</span>
                     </circle>
-                    <span flex="dir:left main:center cross:center" style="font-size: 12px;">完成任务</span>
+                    <span flex="dir:left main:center cross:center" style="font-size: 12px;color:#999999;">完成任务</span>
                 </div>
             </div>
             <div class="briefing-item" flex-box="3" flex="main:center cross:center" v-link="{ name: 'score' }">
                 <div style="max-width:200px;" flex-box="1">
-                    <circle :percent="100" :stroke-width="5" stroke-color="#4a8efc">
+                    <circle :percent="50" :trail-width=5 :stroke-width="5" stroke-color="#00adeb">
                         <span>{{view.score}}分</span>
                     </circle>
-                    <span flex="dir:left main:center cross:center" style="font-size: 12px;">获得奖励</span>
+                    <span flex="dir:left main:center cross:center" style="font-size: 12px;color:#999999;">获得奖励</span>
                 </div>
             </div>
             <div class="briefing-item" flex-box="2" flex="main:center cross:center">
                 <div style="max-width:150px;" flex-box="1">
-                    <circle :percent="getRatePrecent" :stroke-width="5" stroke-color="#fb5b52">
+                    <circle :percent="getRatePrecent" :trail-width=5 :stroke-width="5" stroke-color="#f9343d">
                         <span>{{view.rate * 100}}%</span>
                     </circle>
-                    <span flex="dir:left main:center cross:center" style="font-size: 12px;">击败比</span>
+                    <span flex="dir:left main:center cross:center" style="font-size: 12px;color:#999999;">击败比</span>
                 </div>
             </div>
         </div>
@@ -94,7 +99,6 @@ import Tool from '../Tool'
 import mixins from '../mixins'
 import store from '../vuex/store'
 import _ from 'underscore' //underscore
-import url from 'url'
 
 import {
     Circle
@@ -122,17 +126,13 @@ export default {
     },
     methods: {
         getUserInfo() {
-            if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
-            // console.log(`this.user.id${this.user.id}`)
-            // console.log(`this.$route.query${JSON.stringify(this.$route.query)}`)
-            // console.log(`this.$route.params${JSON.stringify(this.$route.params)}`)
-            // console.log(`_.has(this.$route.query,'id')${_.has(this.$route.query,'id')}`)
             let wxId = this.user.id
             if (_.has(this.$route.query,'id')) {
               wxId = this.$route.query.id
             }
-            this.breakAjax = Tool.get('WxBus/getUserinfo', {
+
+            Tool.get('WxBus/getUserinfo', {
                 wxId
             }, (data) => {
                 if (data) {
@@ -160,6 +160,23 @@ export default {
                     })
                 }
             }, this.GET_DATA_ERROR)
+        },
+        doSign(){
+          let wxId = this.user.id
+          if(this.breakAjax) return false //请求未结束，防止重复请求
+          this.breakAjax = Tool.post('WxBus/sign',{
+              wxId
+          },(data) => {
+            delete this.breakAjax
+            if (data.msg == "0") {
+              console.log('已经签到')
+            }else {
+              console.log('签到成功')
+            }
+          }, () => {
+              delete this.breakAjax
+              console.log('签到失败')
+          })
         }
     },
     computed: {

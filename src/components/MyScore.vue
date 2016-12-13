@@ -94,6 +94,7 @@ export default {
             this.breakAjax = Tool.get(`WxBus/myScoreList`, {
                 wxId
             }, (data) => {
+                console.log(data)
                 this.GET_DATA_LIST(data)
             }, this.GET_DATA_ERROR)
         },
