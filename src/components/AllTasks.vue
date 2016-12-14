@@ -13,12 +13,12 @@ div
         img.img(:src="task.coverUrl", lazy="loading")
         .taskTitle
           span.title(v-text="task.name")
-      .taskStatus.taskShared(v-if="showTask.userId | isEmpty")
+      .taskStatus.taskShared(v-if="task.userId | isEmpty")
         span
-          | 未分享
+          | 未接受
       .taskStatus.taskNotShare(v-else="")
         span
-          | 已分享
+          | 已接受
       div(flex="main:justify cross:center")
         .tasksFont
           div
@@ -44,14 +44,14 @@ div
             div(flex-box="1" flex="dir:left main:center cross:center")
               div(flex-box="1" flex="main:center cross:center")
                 span
-                  | {{ `分享奖励&nbsp;&nbsp;+&nbsp;&nbsp;${showTask.clickScore}` }}
+                  | {{ `分享奖励&nbsp;&nbsp;+&nbsp;${showTask.clickScore}` }}
               div(flex-box="1" flex="main:center cross:center")
                 span
-                  | {{ `好友点击&nbsp;&nbsp;+&nbsp;&nbsp;${showTask.clickScore}` }}
+                  | {{ `好友点击&nbsp;&nbsp;+&nbsp;${showTask.clickScore}` }}
         .allTasks-footer(flex="top:dir main:center cross:center")
-          div(flex-box="1", @click="accept(showTask.id)", v-if="showTask.userId | isEmpty")
+          div(flex-box="1", @click="accept(showTask.id,showTask.contentUrl)", v-if="showTask.userId | isEmpty")
             span 接收
-          div(flex-box="1", @click="doTask(showTask.id)", v-else="")
+          div(flex-box="1", @click="doTask(showTask.id,showTask.contentUrl)", v-else="")
             span 做任务
           div(flex-box="1", @click="closeModal")
             span 取消
@@ -146,7 +146,7 @@ export default {
                     showTask: {}
                 })
             },
-            accept(taskId){
+            accept(taskId,contentUrl){
               // let userId = this.$route.query.id
               let wxId = this.user.id
               if (_.has(this.$route.query,'id')) {
@@ -157,10 +157,14 @@ export default {
                   taskId
               },(data)=>{
                 console.log(data)
+                if (data.success) {
+                  self.location = contentUrl
+                }
               })
             },
-            doTask(taskId){
-              console.log(taskId)
+            doTask(taskId,contentUrl){
+              console.log(contentUrl)
+              self.location = contentUrl
             }
     }
 }

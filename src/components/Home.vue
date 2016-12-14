@@ -146,6 +146,7 @@ export default {
             rate
           })
 					this.SET_CUSTOM_KEY({
+							// isSign:false
 							isSign
 					})
           this.SIGNIN(user)
