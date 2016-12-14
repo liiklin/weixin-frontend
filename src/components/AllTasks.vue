@@ -27,7 +27,7 @@ div
             span(style="color:#ff6a99;")
               | {{ `&nbsp;分享+${task.shareScore}` }}
         .tasksFont
-          span(v-text="task.summary || \"0\" ")
+          span(v-text="task.shareCount || \"0\" ")
           span 人参与●
           span {{task.state | isFinished }}
   div

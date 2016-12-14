@@ -73,16 +73,10 @@ div
 				div(class="btn-top" flex="main:center cross=center" @click="extShowModal = true")
 					span
 						| 开启任务赚积分
-				div(class="btn-bottom" flex="main:center cross=center")
-					span
-						| &nbsp;
 			div(class="btn" flex-box="1" flex="dir:top main:center cross=center")
 				div(class="btn-top-1" flex="main:center cross=center" @click="rateShowModal = true")
 					span
 						| 邀请好友赚积分
-				div(class="btn-bottom-1" flex="main:center cross=center")
-					span
-						| &nbsp;
 </template>
 
 <script>
