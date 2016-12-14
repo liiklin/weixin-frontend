@@ -10,6 +10,7 @@ import app from './app' //app
 import route from './config/route' //路由配置
 import store from './vuex/store' //vuex
 
+require('vue-animate/dist/vue-animate.min.css')
 import 'normalize.css' //重置浏览器默认样式
 import 'flex.css' //flex布局
 import './less/common.less' //公共样式
@@ -18,8 +19,8 @@ import './iconfont/iconfont.css' //web字体图标
 Vue.use(VueRouter)
 Vue.use(VueLazyload)
 
-const FastClick = require('fastclick')
-FastClick.attach(document.body)
+// const FastClick = require('fastclick')
+// FastClick.attach(document.body)
 
 Object.keys(filter).forEach(k => Vue.filter(k, filter[k])) //注册过滤器
 

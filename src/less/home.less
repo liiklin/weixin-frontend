@@ -1,84 +1,107 @@
 @import "../less/config";
+
 #header {
-    padding: 40px 0 30px;
-    background: #7f3ce6;
-    background: linear-gradient(#7f3ce6 0%, #387ad8 100%);
-    width: 100%;
+  padding: 40px 0 30px;
+  background: #7f3ce6;
+  background: linear-gradient(#7f3ce6 0%, #387ad8 100%);
+  width: 100%;
 }
 
 .user-icon {
-    width: 75px;
-    height: 75px;
-    border-radius: 50px;
-    border: solid 3px #abb0ef;
+  width: 75px;
+  height: 75px;
+  border-radius: 50px;
+  border: solid 3px #abb0ef;
 }
 
 #userName {
-    padding: 20px 0 0;
-    color: #fff;
-    font-size: 14px;
+  padding: 20px 0 0;
+  color: #fff;
+  font-size: 14px;
 }
 
-.sign{
-  float:right;
-  margin-right:5%;
-  color: #fff;
+.showSign {
+  float: right;
+  margin-right: 2%;
+  color: #66b1ed;
   font-size: 0.625em;
-  background: #ffb400;
-  width: 45px;
   text-align: center;
-  border-radius: 20px;
   line-height: 20px;
   height: 20px;
 }
 
+.signBase{
+  float: right;
+  margin-right: 5%;
+  color: #fff;
+  font-size: 0.625em;
+  text-align: center;
+  border-radius: 20px;
+  line-height: 20px;
+  height: 20px;
+  background: #ffb400;
+}
+
+.hasSign {
+  width: 55px;
+}
+
+.sign {
+  background: #ffb400;
+  width: 45px;
+
+  &:active {
+    background: #ffb400 * 0.9;
+  }
+}
+
 .task-content {
-    margin: 10px 0;
-    background-color: #fff;
+  margin: 10px 0;
+  background-color: #fff;
 }
 
 .task-item:active {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .task-icon {
-    position: relative;
-    padding: 10px 0 5px;
+  position: relative;
+  padding: 10px 0 5px;
 }
 
 .task-icon > span {
-    padding: 5px 0;
-    font-size: 12px;
-    color: #6a6a6a;
+  padding: 5px 0;
+  font-size: 12px;
+  color: #6a6a6a;
 }
 
 .task-icon > img {
-    border-radius: 5px;
-    width: 50%;
+  border-radius: 5px;
+  width: 50%;
 }
 
 .notice {
-    width: 10px;
-    height: 10px;
-    line-height: 10px;
-    font-size: 10px;
-    color: #fff;
-    text-align: center;
-    background-color: #f00;
-    border-radius: 50%;
-    border: solid 2px #fff;
-    position: absolute;
-    right: 17px;
-    top: 8px;
+  width: 10px;
+  height: 10px;
+  line-height: 10px;
+  font-size: 10px;
+  color: #fff;
+  text-align: center;
+  background-color: #f00;
+  border-radius: 50%;
+  border: solid 2px #fff;
+  position: absolute;
+  right: 17px;
+  top: 8px;
 }
 
 .my-briefing {
-    margin: 10px 0;
-    background-color: #fff;
+  margin: 10px 0;
+  background-color: #fff;
 }
 
 .my-briefing-top {
-    padding: 10px;
+  padding: 10px;
 }
 
 .briefing-item {
@@ -88,38 +111,38 @@
 }
 
 .briefing-item:active {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .doTask {
-    padding: 15px 0;
-    background-color: #fff;
+  padding: 15px 0;
+  background-color: #fff;
 }
 
 .wei-btn {
-    outline: none;
-    padding: 5px;
-    border: #e3e3e3 1px solid;
-    background-color: #fff;
-    color: #e3e3e3;
-    border-radius: 5px;
+  outline: none;
+  padding: 5px;
+  border: #e3e3e3 1px solid;
+  background-color: #fff;
+  color: #e3e3e3;
+  border-radius: 5px;
 }
 
 .wei-btn:active {
-    border: #d3d3d3 1px solid;
-    background-color: #fff;
+  border: #d3d3d3 1px solid;
+  background-color: #fff;
 }
 
 .wei-btn-default {
-    outline: none;
-    padding: 5px;
-    border: #da7d4a 1px solid;
-    color: #da7d4a;
-    background-color: #fff;
-    border-radius: 5px;
+  outline: none;
+  padding: 5px;
+  border: #da7d4a 1px solid;
+  color: #da7d4a;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 .wei-btn-default:active {
-    border: #d62d1a 1px solid;
-    color: #d62d1a;
+  border: #d62d1a 1px solid;
+  color: #d62d1a;
 }

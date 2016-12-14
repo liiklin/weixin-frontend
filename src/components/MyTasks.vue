@@ -5,33 +5,26 @@
 
 </style>
 
-<template>
-
-<div>
-    <br>
-    <div class="myTasks">
-        <div class="myTaskItem" flex="main:justify cross:center" v-for="task in list">
-            <div flex="main:center cross:center">
-                <img class="img" :src="task.image" lazy="loading" style="border-radius:5px;width:80px;height:80px;" />
-            </div>
-            <div flex-box="4" flex="dir:top main:left cross:left" style="padding:5px;">
-                <div flex-box="1" class="taskItemTitle">
-                    <span v-text="task.name"></span>
-                </div>
-                <div flex-box="1" class="taskCreatedAt">
-                    <span>{{task.modifyDate | formatDate}} 发布</span>
-                </div>
-                <div flex-box="3" class="taskInfos">
-                    <span>点击 </span>
-                    <span v-text="task.clickCount"></span>
-                    <span> 分享 </span>
-                    <span v-text="task.shareCount"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<template lang="pug">
+  div
+    br
+    .myTasks
+      .myTaskItem(flex="main:justify cross:center", v-for="task in list")
+        div(flex="main:center cross:center")
+          img.img(:src="task.image", lazy="loading", style="border-radius:5px;width:80px;height:80px;")
+        div(flex-box="4", flex="dir:top main:left cross:left", style="padding:5px;")
+          .taskItemTitle(flex-box="1")
+            span(v-text="task.name")
+          .taskCreatedAt(flex-box="1")
+            span
+              | {{task.modifyDate | formatDate}} 发布
+          .taskInfos(flex-box="3")
+            span
+              | 点击
+            span(v-text="task.clickCount")
+            span
+              | 分享
+            span(v-text="task.shareCount")
 </template>
 
 <script>
@@ -68,7 +61,6 @@ export default {
             if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
             let baseImgUrl = "http://weixin.7ipr.com/Repository/weixin/"
-            // let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
             let wxId = this.user.id
             if (_.has(this.$route.query,'id')) {
               wxId = this.$route.query.id

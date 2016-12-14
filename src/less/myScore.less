@@ -1,8 +1,16 @@
 @import './config';
 
+.scoreBg {
+  height: 150px;
+  background: #fd4d59;
+  background: linear-gradient(#fd4d59 0%, #ff5d87 100%);
+  color: #fff;
+  font-size: 1.25em
+}
+
 .scoreDetail {
   padding: 10px;
-  margin: 2%;
+  margin: 2% 3%;
   border-radius: 5px;
   background-color: #fff;
   border: solid 1px @lineColor;
@@ -13,7 +21,7 @@
 }
 
 .detail > span:nth-child(1) {
-  font-size: 18px;
+  font-size: 0.9em;
   min-width: 200px;
   overflow: hidden;
   display: -webkit-box;
@@ -23,10 +31,11 @@
 }
 
 .detail > span:nth-child(2) {
-  font-size: 14px;
+  font-size: 0.625em;
   color: @lineColor * 0.8;
   padding-top: 10px;
 }
-.changeScore{
-  color: #e55652;
+
+.changeScore {
+  color: #00c57f;
 }

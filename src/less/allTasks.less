@@ -1,13 +1,29 @@
+.weui_dialog{
+  background-color: rgba(238, 238, 238, 0) !important;
+}
+
 .allTasks-modal{
-  border-radius: 30px;
+  border-radius: 10px;
+  position: relative;
 }
 
 .allTasks-header{
-
+  top: 0;
+  width: 100%;
+  position: absolute;
+  img {
+    height: 50%;
+    width: 50%;
+  }
 }
 
 .allTasks-content{
+  padding-top: 25%;
   border-bottom: 1px #ececec solid;
+  margin-top: 20%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #fafafc;
 }
 
 .allTasks-footer{
@@ -27,17 +43,17 @@
 }
 
 .allTasks-footer > div > span {
-  font-size: 18px;
+  font-size: 0.9em;
   height: 50px;
   line-height: 50px;
 }
 
 .allTasks-footer div:nth-child(odd){
-  background-color: #f27427;
+  background-color: #ff2178;
   color:#fff;
 }
 .allTasks-footer div:nth-child(odd):active{
-  background-color: #f27427 * 1.2;
+  background-color: #ff2178 * 0.9;
   color:#fff;
 }
 

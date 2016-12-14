@@ -34,7 +34,7 @@ export const formatDate = (str, format) => {
  * @returns 格式化后的结果
  */
 export const formatNumbers = (num) => {
-  return num > 0 ? `+${num}` : num
+  return Number(num) > 0 ? `+${num}` : num
 }
 
 /**
@@ -93,15 +93,19 @@ export const redPrizes = (str) => {
  * @returns 积分明细title
  */
 export const prizesTitle = (title,str) => {
-  let obj = {}
-  _.each(str.split(","), (val) => {
-    let d = val.split(":")
-    obj[d[0]] = d[1]
-  })
-  if(obj.type == 'click'){
-    return `查看活动  "${title}"`
-  }else if(obj.type == 'share'){
-    return `分享活动  "${title}"`
+  if(str){
+    let obj = {}
+    _.each(str.split(","), (val) => {
+      let d = val.split(":")
+      obj[d[0]] = d[1]
+    })
+    if(obj.type == 'click'){
+      return `查看活动  "${title}"`
+    }else if(obj.type == 'share'){
+      return `分享活动  "${title}"`
+    }
+  }else {
+    return title
   }
 }
 

@@ -1,195 +1,218 @@
 <style lang="less" scoped>
-
 @import "../less/home";
-
+@import "../less/bottun";
 </style>
 
-<template>
-
-<div>
-    <div id="header">
-        <div flex="main:center cross:center">
-            <div class="user-icon" v-link="{ path: 'user' }">
-                <img v-bind:src="view.wxPhoto" alt="" />
-            </div>
-        </div>
-        <span id="userName" flex="main:center cross:center" v-text="view.name"></span>
-        <div class="sign" @click="doSign">
-          <div class="vux-reddot-border">
-            <span>签到</span>
-          </div>
-        </div>
-    </div>
-    <div class="task-content" flex="main:center cross:center">
-        <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'all' }">
-            <div class="task-icon" flex="dir:top main:center cross:center">
-                <img src="../assets/icon1.png" alt="" />
-                <div class="notice" v-show="showRedPointer"></div>
-                <span flex="main:center cross:center">任务中心</span>
-            </div>
-        </div>
-        <div class="task-item" flex-box="1" flex="main:center cross:center">
-            <div class="task-icon" flex="dir:top main:center cross:center">
-                <img src="../assets/icon2.png" alt="" />
-                <span flex="main:center cross:center">积分商城</span>
-            </div>
-        </div>
-        <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'score' }">
-            <div class="task-icon" flex="dir:top main:center cross:center">
-                <img src="../assets/icon3.png" alt="" />
-                <span flex="main:center cross:center">我的积分</span>
-            </div>
-        </div>
-        <div class="task-item" flex-box="1" flex="main:center cross:center" v-link="{ name: 'red' }">
-            <div class="task-icon" flex="dir:top main:center cross:center">
-                <img src="../assets/icon4.png" alt="" />
-                <span flex="main:center cross:center">我的邀请</span>
-            </div>
-        </div>
-    </div>
-    <div class="my-briefing" flex="dir:top main:center">
-        <div class="my-briefing-top" flex="main:center">
-            <span flex="main:center cross:center">我的简报</span>
-        </div>
-        <div style="padding: 10px 0;" flex="dir:left main:center cross:center">
-            <div class="briefing-item" flex-box="2" flex="main:center cross:center" v-link="{ name: 'my' }">
-                <div style="max-width:150px;" flex-box="1">
-                    <circle :percent="getTaskPrecent" :trail-width=5 :stroke-width="5" stroke-color="#f8b707">
-                        <span>{{view.completedTask}}个</span>
-                    </circle>
-                    <span flex="dir:left main:center cross:center" style="font-size: 12px;color:#999999;">完成任务</span>
-                </div>
-            </div>
-            <div class="briefing-item" flex-box="3" flex="main:center cross:center" v-link="{ name: 'score' }">
-                <div style="max-width:200px;" flex-box="1">
-                    <circle :percent="50" :trail-width=5 :stroke-width="5" stroke-color="#00adeb">
-                        <span>{{view.score}}分</span>
-                    </circle>
-                    <span flex="dir:left main:center cross:center" style="font-size: 12px;color:#999999;">获得奖励</span>
-                </div>
-            </div>
-            <div class="briefing-item" flex-box="2" flex="main:center cross:center">
-                <div style="max-width:150px;" flex-box="1">
-                    <circle :percent="getRatePrecent" :trail-width=5 :stroke-width="5" stroke-color="#f9343d">
-                        <span>{{view.rate * 100}}%</span>
-                    </circle>
-                    <span flex="dir:left main:center cross:center" style="font-size: 12px;color:#999999;">击败比</span>
-                </div>
-            </div>
-        </div>
-        <div class="doTask" flex="main:center cross:center">
-            <div flex-box="1" flex="main:center cross:center">
-                <button type="button" class="wei-btn-default">开启任务赚积分</button>
-            </div>
-            <div flex-box="1" flex="main:center cross:center">
-                <button type="button" class="wei-btn">邀请好友赚积分</button>
-            </div>
-        </div>
-    </div>
-
-</div>
-
+<template lang="pug">
+div
+	#header
+		div(flex="main:center cross:center")
+			.user-icon(v-link="{ path: 'user' }")
+				img(v-bind:src="view.wxPhoto", alt="")
+		span#userName(flex="main:center cross:center", v-text="view.name")
+		.signBase(:class="{hasSign:isSign,sign:!isSign}" @click="doSign")
+			div(v-if="isSign")
+				span
+					|	已签到
+			.vux-reddot-border(v-else="")
+				span
+					| 签到
+		.showSign(v-if="signShow" transition="fadeUp")
+			span
+				|	{{ `积分+${addSignSroce}` }}
+	.task-content(flex="main:center cross:center")
+		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'all' }")
+			.task-icon(flex="dir:top main:center cross:center")
+				img(src="../assets/icon1.png", alt="")
+				.notice(v-show="showRedPointer")
+				span(flex="main:center cross:center")
+					| 任务中心
+		.task-item(flex-box="1", flex="main:center cross:center")
+			.task-icon(flex="dir:top main:center cross:center")
+				img(src="../assets/icon2.png", alt="")
+				span(flex="main:center cross:center")
+					| 积分商城
+		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'score' }")
+			.task-icon(flex="dir:top main:center cross:center")
+				img(src="../assets/icon3.png", alt="")
+				span(flex="main:center cross:center")
+					| 我的积分
+		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'red' }")
+			.task-icon(flex="dir:top main:center cross:center")
+				img(src="../assets/icon4.png", alt="")
+				span(flex="main:center cross:center")
+					| 我的邀请
+	.my-briefing(flex="dir:top main:center")
+		.my-briefing-top(flex="main:center")
+			span(flex="main:center cross:center")
+					| 我的简报
+		div(style="padding: 10px 0;", flex="dir:left main:center cross:center")
+			.briefing-item(flex-box="2", flex="main:center cross:center", v-link="{ name: 'my' }")
+				div(style="max-width:150px;", flex-box="1")
+					circle(:percent="getTaskPrecent", :trail-width="5", :stroke-width="5", stroke-color="#f8b707")
+						span
+							| {{view.completedTask}}个
+					span(flex="dir:left main:center cross:center", style="font-size: 12px;color:#999999;")
+						| 完成任务
+			.briefing-item(flex-box="3", flex="main:center cross:center", v-link="{ name: 'score' }")
+				div(style="max-width:200px;", flex-box="1")
+					circle(:percent="50", :trail-width="5", :stroke-width="5", stroke-color="#00adeb")
+						span
+							| {{view.score}}分
+					span(flex="dir:left main:center cross:center", style="font-size: 12px;color:#999999;")
+						| 获得奖励
+			.briefing-item(flex-box="2", flex="main:center cross:center")
+				div(style="max-width:150px;", flex-box="1")
+					circle(:percent="getRatePrecent", :trail-width="5", :stroke-width="5", stroke-color="#f9343d")
+						span
+							| {{view.rate * 100}}%
+					span(flex="dir:left main:center cross:center", style="font-size: 12px;color:#999999;")
+						| 击败比
+		.doTask(flex="main:center cross:center")
+			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" v-link="{ name: 'all' }")
+				div(class="btn-top" flex="main:center cross=center" @click="extShowModal = true")
+					span
+						| 开启任务赚积分
+				div(class="btn-bottom" flex="main:center cross=center")
+					span
+						| &nbsp;
+			div(class="btn" flex-box="1" flex="dir:top main:center cross=center")
+				div(class="btn-top-1" flex="main:center cross=center" @click="rateShowModal = true")
+					span
+						| 邀请好友赚积分
+				div(class="btn-bottom-1" flex="main:center cross=center")
+					span
+						| &nbsp;
 </template>
 
 <script>
-
 const NAME = 'home'
 
 import Tool from '../Tool'
 import mixins from '../mixins'
 import store from '../vuex/store'
-import _ from 'underscore' //underscore
+import _ from 'underscore'
 
 import {
-    Circle
+  Circle
 }
 from 'vux'
 
+store.dispatch(`${NAME}ADD_CUSTOM_KEY`, {
+    signShow: false,
+    addSignSroce:0,
+		isSign:false
+})
 
 export default {
-    components: {
-        Circle
+  components: {
+    Circle
+  },
+  mixins: [mixins(NAME)],
+  route: {
+    data() {
+      this.getUserInfo()
     },
-    mixins: [mixins(NAME)],
-    route: {
-        data() {
-                this.getUserInfo()
-            },
-            canReuse({
-                to
-            }) {
-                this.RESET(to.path)
-                if (this.breakAjax) this.breakAjax() //中断之前的请求，防止执行回调方法
-                delete this.breakAjax //清除掉上个页面的ajax请求
-                return true
-            }
-    },
-    methods: {
-        getUserInfo() {
-            this.GET_DATA_START()
-            let wxId = this.user.id
-            if (_.has(this.$route.query,'id')) {
-              wxId = this.$route.query.id
-            }
+    canReuse({
+      to
+    }) {
+      this.RESET(to.path)
+      if (this.breakAjax) this.breakAjax() //中断之前的请求，防止执行回调方法
+      delete this.breakAjax //清除掉上个页面的ajax请求
+      return true
+    }
+  },
+  methods: {
+    getUserInfo() {
+      this.GET_DATA_START()
+      let wxId = this.user.id
+      if (_.has(this.$route.query, 'id')) {
+        wxId = this.$route.query.id
+      }
 
-            Tool.get('WxBus/getUserinfo', {
-                wxId
-            }, (data) => {
-                if (data) {
-                    let score = data.myTotalScore
-                    let rate = data.beatRatio
-                    let myTasks = data.myTaskList
-                    let myTotalRedPacket = data.myTotalRedPacket
-                    let totalTask = myTasks.length
-                    let completedTask = _.filter(myTasks,(task)=>{
-                      return task.state == 1
-                    }).length
+      Tool.get('WxBus/getUserinfo', {
+        wxId
+      }, (data) => {
+        if (data) {
+					let isSign = data.isSign
+          let score = data.myTotalScore
+          let rate = data.beatRatio
+          let myTasks = data.myTaskList
+          let myTotalRedPacket = data.myTotalRedPacket
+          let totalTask = myTasks.length
+          let completedTask = _.filter(myTasks, (task) => {
+            return task.taskBusState == 1
+          }).length
 
-                    let user = _.extend(data.user, {
-                        myTotalRedPacket,
-                        score,
-                        totalTask,
-                        completedTask,
-                        rate
-                    })
-                    this.SIGNIN(user)
-                    this.GET_DATA_VIEW(user)
-                } else {
-                    this.GET_DATA_ERROR({
-                        loadTip: '用户不存在'
-                    })
-                }
-            }, this.GET_DATA_ERROR)
-        },
-        doSign(){
-          let wxId = this.user.id
-          if(this.breakAjax) return false //请求未结束，防止重复请求
-          this.breakAjax = Tool.post('WxBus/sign',{
-              wxId
-          },(data) => {
-            delete this.breakAjax
-            if (data.msg == "0") {
-              console.log('已经签到')
-            }else {
-              console.log('签到成功')
-            }
-          }, () => {
-              delete this.breakAjax
-              console.log('签到失败')
+          let user = _.extend(data.user, {
+            myTotalRedPacket,
+            score,
+            totalTask,
+            completedTask,
+            rate
+          })
+					this.SET_CUSTOM_KEY({
+							isSign
+					})
+          this.SIGNIN(user)
+          this.GET_DATA_VIEW(user)
+        } else {
+          this.GET_DATA_ERROR({
+            loadTip: '用户不存在'
           })
         }
+      }, this.GET_DATA_ERROR)
     },
-    computed: {
-        showRedPointer() {
-                return this.view.totalTask - this.view.completedTask > 0
-            },
-            getTaskPrecent() {
-                return Number(this.view.completedTask / this.view.totalTask).toFixed(2) * 100
-            },
-            getRatePrecent() {
-                return this.view.rate * 100
-            }
+    doSign() {
+			if (this.isSign) return false //防止重复签到
+      let wxId = this.user.id
+			console.log(this.breakAjax)
+      if (this.breakAjax) return false //请求未结束，防止重复请求
+      this.breakAjax = Tool.post('WxBus/sign', {
+        wxId
+      }, (data) => {
+        delete this.breakAjax
+        if (data.msg == "0") {
+          console.log('已经签到')
+					this.SET_CUSTOM_KEY({
+							signShow: true,
+							isSign:true,
+							addSignSroce: data.msg
+					})
+					setTimeout(()=>{
+						this.SET_CUSTOM_KEY({
+								signShow: false
+						})
+					},1000)
+        } else {
+          console.log('签到成功')
+					this.SET_CUSTOM_KEY({
+							signShow: true,
+							isSign:true,
+							addSignSroce: data.msg
+					})
+					setTimeout(()=>{
+						this.SET_CUSTOM_KEY({
+								signShow: false
+						})
+					},1000)
+        }
+      }, () => {
+        delete this.breakAjax
+        console.log('签到失败')
+      })
     }
+  },
+  computed: {
+    showRedPointer() {
+      return this.view.totalTask - this.view.completedTask > 0
+    },
+    getTaskPrecent() {
+      return Number(this.view.completedTask / this.view.totalTask).toFixed(2) * 100
+    },
+    getRatePrecent() {
+      return this.view.rate * 100
+    }
+  }
 }
-
 </script>

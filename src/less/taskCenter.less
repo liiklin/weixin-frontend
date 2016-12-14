@@ -6,10 +6,11 @@
 }
 
 .item {
+  position: relative;
   width: auto;
   height: auto;
   border-radius: 5px;
-  border: #f2f2f2 1px solid;
+  border: solid #e6e6e6 1px;
   margin: 10px 0;
 }
 
@@ -20,7 +21,7 @@
 
 .myTaskItem {
   padding: 10px 0;
-  border-bottom: #f2f2f2 1px solid;
+  border-bottom: solid #e6e6e6 1px;
   margin: 10px 0;
 }
 
@@ -43,6 +44,29 @@
 .tasksFont {
   padding: 10px;
   font-size: 12px;
+}
+
+.taskStatus {
+  text-align: center;
+  color: #ffffff;
+  position: absolute;
+  font-size: 10px;
+  right: 3px;
+  top: -1px;
+  height: 20px;
+  line-height: 20px;
+  width: 45px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+}
+
+.taskShared {
+  background: #29c7ff;
+  border: solid 1px #29c7ff;
+}
+
+.taskNotShare {
+  background: #ffb400;
+  border: solid 1px #ffb400;
 }
 
 .taskImg {
@@ -68,4 +92,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   color: #fff;
+}
+
+.weui_dialog {
+  border-radius: 10px !important;
 }

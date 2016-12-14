@@ -4,37 +4,26 @@
 
 </style>
 
-<template>
-
-<div>
-    <div>
-        <x-header style="background-color:#000;" :left-options={showBack:true,backText:"返回",preventGoBack:true} @on-click-back="goBack">我的红包</x-header>
-    </div>
-    <div>
-        <div flex="dir:top main:center cross:center" style="padding-top:46px;height:150px;background-color:#7998ab;color:#fff;">
-            <div>
-                <i class="iconfont icon-align-justify" style="font-size: 50px;"></i>
-            </div>
-            <div>
-                <span>共收到&nbsp;</span><span v-text="user.myTotalRedPacket"></span><span>&nbsp;元</span>
-            </div>
-        </div>
-        <div style="padding: 5px;">
-            <divider>红包明细</divider>
-        </div>
-        <div>
-            <div v-for="red in list" class="scoreDetail" flex="main:left box:last">
-                <div flex="dir:top">
-                    <span>{{red.createdAt | formatDate 'YYYY-MM-DD'}}</span>
-                </div>
-                <div flex="main:center cross:center">
-                    <span class="changeScore">{{`${red.receive}元`}}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<template lang="pug">
+div
+  div
+    x-header(style="background-color:#000;", :left-options='{showBack:true,backText:"返回",preventGoBack:true}', @on-click-back="goBack") 我的红包
+  div
+    div(flex="dir:top main:center cross:center", style="padding-top:46px;height:150px;background-color:#7998ab;color:#fff;")
+      div
+        i.iconfont.icon-align-justify(style="font-size: 50px;")
+      div
+        span 共收到 
+        span(v-text="user.myTotalRedPacket")
+        span  元
+    div(style="padding: 5px;")
+      divider 红包明细
+    div
+      .scoreDetail(v-for="red in list", flex="main:left box:last")
+        div(flex="dir:top")
+          span {{red.createdAt | formatDate 'YYYY-MM-DD'}}
+        div(flex="main:center cross:center")
+          span.changeScore {{`${red.receive}元`}}
 </template>
 
 <script >

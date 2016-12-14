@@ -1,82 +1,62 @@
-<style lang="less" scoped>
-
+<style lang="less">
 @import "../less/taskCenter";
 @import "../less/lazyLoad";
 @import "../less/allTasks";
-
 </style>
 
-<template>
-
-<div>
-    <br>
-    <div class="items">
-        <div class="item" v-for="task in list" @click="showTaskInfo(task.id)">
-            <div class="taskImg">
-                <img class="img" :src="task.coverUrl" lazy="loading" />
-                <div class="taskTitle">
-                    <span class="title" v-text="task.name"></span>
-                </div>
-            </div>
-            <div flex="main:justify cross:center">
-                <div class="tasksFont" v-for="prize in task.prizes">
-                    <div v-if="prize.type == 0">
-                        <span>{{prize.getRule | redPrizes}}</span>
-                    </div>
-                    <div v-else>
-                        <span>{{prize.getRule | prizes 'type'}}</span>
-                        <span style="color:#f27427;">+{{prize.getRule | prizes ''}}</span>
-                    </div>
-                </div>
-                <div class="tasksFont">
-                    <span v-text="task.summary"></span><span>人参与 * </span>
-                    <span>{{task.state | isFinished }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div>
-        <dialog :show.sync="isShow" dialog-transition="" :scroll="false">
-            <div class="allTasks-modal">
-                <div class="allTasks-header" flex="dir:top main:center cross:center">
-                    <img style="height:200px;" src="http://img0.imgtn.bdimg.com/it/u=4293591722,688107236&fm=21&gp=0.jpg" />
-                </div>
-                <div class="allTasks-content" flex="dir:top main:center cross:center">
-                    <div class="" style="padding:10px;">
-                        <span>你即将进入活动链接页面，分享后返回任务中心，即可完成任务！</span>
-                    </div>
-                    <div class="" style="padding:10px;" flex="dir:left main:center cross:center">
-                        <img style="width:30px;height:30px;border-radius:5px;" src="http://img0.imgtn.bdimg.com/it/u=4293591722,688107236&fm=21&gp=0.jpg" />
-                        <span style="font-size:30px;color:#f27427;padding-left:10px;" v-text="user.score"></span>
-                    </div>
-                    <div style="width:100%;padding:10px 0px;" flex="main:center cross:center">
-                        <div flex-box="1" flex="main:center cross:center" v-for="prize in showTask.prizes">
-                            <div flex="main:center cross:center" v-if="prize.type == 0">
-                                <span>{{prize.getRule | redPrizes}}</span>
-                            </div>
-                            <div flex="main:center cross:center" v-else>
-                                <span>{{prize.getRule | prizes 'type'}}</span>
-                                <span style="color:#f27427;">+{{prize.getRule | prizes ''}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div flex="main:center cross:center" class="allTasks-footer">
-                    <div flex-box="1" @click="accept(showTask.id)" v-if="showTask.userId | isEmpty">
-                        <span>接收</span>
-                    </div>
-                    <div flex-box="1" @click="doTask(showTask.id)" v-else>
-                        <span>做任务</span>
-                    </div>
-                    <div flex-box="1" @click="closeModal">
-                        <span>取消</span>
-                    </div>
-                </div>
-            </div>
-        </dialog>
-    </div>
-</div>
-
+<template lang="pug">
+div
+  br
+  .items
+    .item(v-for="task in list", @click="showTaskInfo(task.id)")
+      .taskImg
+        img.img(:src="task.coverUrl", lazy="loading")
+        .taskTitle
+          span.title(v-text="task.name")
+      .taskStatus.taskShared(v-if="showTask.userId | isEmpty")
+        span
+          | 未分享
+      .taskStatus.taskNotShare(v-else="")
+        span
+          | 已分享
+      div(flex="main:justify cross:center")
+        .tasksFont
+          div
+            span(style="color:#ff6a99;")
+              | {{ `点击+${task.clickScore}` }}
+            span(style="color:#ff6a99;")
+              | {{ `&nbsp;分享+${task.shareScore}` }}
+        .tasksFont
+          span(v-text="task.summary || \"0\" ")
+          span 人参与●
+          span {{task.state | isFinished }}
+  div
+    dialog(:show.sync="isShow", dialog-transition="", :scroll="false")
+      .allTasks-modal
+        .allTasks-content(flex="dir:top main:center cross:center")
+          div(style="padding:10px;")
+            span
+              | 你即将进入活动链接页面，分享后返回任务中心，即可完成任务！
+          div(style="padding:10px;", flex="dir:left main:center cross:center")
+            img(style="width:30px;height:30px;border-radius:5px;", src="../assets/score2.png")
+            span(style="font-size:30px;color:#ffb400;padding-left:10px;", v-text="user.score")
+          div(style="width:100%;padding:10px 0px;", flex="main:center cross:center")
+            div(flex-box="1" flex="dir:left main:center cross:center")
+              div(flex-box="1" flex="main:center cross:center")
+                span
+                  | {{ `分享奖励&nbsp;&nbsp;+&nbsp;&nbsp;${showTask.clickScore}` }}
+              div(flex-box="1" flex="main:center cross:center")
+                span
+                  | {{ `好友点击&nbsp;&nbsp;+&nbsp;&nbsp;${showTask.clickScore}` }}
+        .allTasks-footer(flex="top:dir main:center cross:center")
+          div(flex-box="1", @click="accept(showTask.id)", v-if="showTask.userId | isEmpty")
+            span 接收
+          div(flex-box="1", @click="doTask(showTask.id)", v-else="")
+            span 做任务
+          div(flex-box="1", @click="closeModal")
+            span 取消
+      .allTasks-header(flex="dir:top main:center cross:center")
+        img(src="../assets/tips.png")
 </template>
 
 <script>
@@ -122,12 +102,10 @@ export default {
                 if (this.breakAjax) return false //请求未结束，防止重复请求
                 this.GET_DATA_START()
                 let baseImgUrl = "http://weixin.7ipr.com/Repository/"
-                // let wxId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
                 let wxId = this.user.id
                 if (_.has(this.$route.query,'id')) {
                   wxId = this.$route.query.id
                 }
-                // console.log(wxId);
                 this.breakAjax = Tool.get(`WxBus/getUserinfo`, {
                     wxId
                 }, (data) => {
@@ -169,10 +147,13 @@ export default {
                 })
             },
             accept(taskId){
-              // let userId = 'o1Xf6wJiAYZqvcParrR85Hl_7BD0'
-              let userId = this.$route.query.id
+              // let userId = this.$route.query.id
+              let wxId = this.user.id
+              if (_.has(this.$route.query,'id')) {
+                wxId = this.$route.query.id
+              }
               Tool.post(`WxBus/accept`, {
-                  userId,
+                  wxId,
                   taskId
               },(data)=>{
                 console.log(data)
