@@ -161,27 +161,28 @@ export default {
 		doSign() {
 			if (this.isSign) return false //防止重复签到
 			let wxId = this.user.id
-			console.log(this.breakAjax)
+			// console.log(this.breakAjax)
 			if (this.breakAjax) return false //请求未结束，防止重复请求
 			this.breakAjax = Tool.post('WxBus/sign', {
 				wxId
 			}, (data) => {
 				delete this.breakAjax
 				if (data.msg == "0") {
-						let user = _.extend(JSON.parse(JSON.stringify(this.view)), {
-							score: Number(this.view.score) + Number(data.msg)
-						})
-						this.GET_DATA_VIEW(user)
-						this.SET_CUSTOM_KEY({
-								signShow: true,
-								isSign:true,
-								addSignSroce: data.msg
-						})
-						setTimeout(()=>{
-							this.SET_CUSTOM_KEY({
-									signShow: false
-							})
-						},1000)
+						console.log('已经签到')
+						// let user = _.extend(JSON.parse(JSON.stringify(this.view)), {
+						// 	score: Number(this.view.score) + Number(data.msg)
+						// })
+						// this.GET_DATA_VIEW(user)
+						// this.SET_CUSTOM_KEY({
+						// 		signShow: true,
+						// 		isSign:true,
+						// 		addSignSroce: data.msg
+						// })
+						// setTimeout(()=>{
+						// 	this.SET_CUSTOM_KEY({
+						// 			signShow: false
+						// 	})
+						// },1000)
 				} else {
 					let user = _.extend(JSON.parse(JSON.stringify(this.view)), {
 						score: Number(this.view.score) + Number(data.msg)

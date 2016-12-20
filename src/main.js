@@ -10,7 +10,7 @@ import app from './app' //app
 import route from './config/route' //路由配置
 import store from './vuex/store' //vuex
 
-require('vue-animate/dist/vue-animate.min.css')
+import 'vue-animate/dist/vue-animate.min.css' // animate
 import 'normalize.css' //重置浏览器默认样式
 import 'flex.css' //flex布局
 import './less/common.less' //公共样式
