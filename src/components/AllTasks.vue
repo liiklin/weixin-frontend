@@ -101,7 +101,7 @@ export default {
         getTaskLists() {
                 if (this.breakAjax) return false //请求未结束，防止重复请求
                 this.GET_DATA_START()
-                let baseImgUrl = "http://weixin.7ipr.com/Repository/"
+                let baseImgUrl = "http://weixin.7ipr.com/app/"
                 let wxId = this.user.id
                 if (_.has(this.$route.query,'id')) {
                   wxId = this.$route.query.id
@@ -147,7 +147,6 @@ export default {
                 })
             },
             accept(taskId,contentUrl){
-              // let userId = this.$route.query.id
               let wxId = this.user.id
               if (_.has(this.$route.query,'id')) {
                 wxId = this.$route.query.id
@@ -156,15 +155,17 @@ export default {
                   wxId,
                   taskId
               },(data)=>{
-                console.log(data)
                 if (data.success) {
-                  self.location = contentUrl
+                  self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}`
                 }
               })
             },
             doTask(taskId,contentUrl){
-              console.log(contentUrl)
-              self.location = contentUrl
+              let wxId = this.user.id
+              if (_.has(this.$route.query,'id')) {
+                wxId = this.$route.query.id
+              }
+              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}`
             }
     }
 }

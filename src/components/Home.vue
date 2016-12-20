@@ -19,7 +19,7 @@ div
 					| 签到
 		.showSign(v-if="signShow" transition="fadeUp")
 			span
-				|	{{ `积分+${addSignSroce}` }}
+				|	{{ `积分+&nbsp;${addSignSroce}` }}
 	.task-content(flex="main:center cross:center")
 		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'all' }")
 			.task-icon(flex="dir:top main:center cross:center")
@@ -45,7 +45,7 @@ div
 	.my-briefing(flex="dir:top main:center")
 		.my-briefing-top(flex="main:center")
 			span(flex="main:center cross:center")
-					| 我的简报
+				| 我的简报
 		div(style="padding: 10px 0;", flex="dir:left main:center cross:center")
 			.briefing-item(flex-box="2", flex="main:center cross:center", v-link="{ name: 'my' }")
 				div(style="max-width:150px;", flex-box="1")
@@ -88,126 +88,132 @@ import store from '../vuex/store'
 import _ from 'underscore'
 
 import {
-  Circle
+	Circle
 }
 from 'vux'
 
 store.dispatch(`${NAME}ADD_CUSTOM_KEY`, {
-    signShow: false,
-    addSignSroce:0,
-		isSign:false
+	signShow: false,
+	addSignSroce: 0,
+	isSign: false
 })
 
 export default {
-  components: {
-    Circle
-  },
-  mixins: [mixins(NAME)],
-  route: {
-    data() {
-      this.getUserInfo()
-    },
-    canReuse({
-      to
-    }) {
-      this.RESET(to.path)
-      if (this.breakAjax) this.breakAjax() //中断之前的请求，防止执行回调方法
-      delete this.breakAjax //清除掉上个页面的ajax请求
-      return true
-    }
-  },
-  methods: {
-    getUserInfo() {
-      this.GET_DATA_START()
-      let wxId = this.user.id
-      if (_.has(this.$route.query, 'id')) {
-        wxId = this.$route.query.id
-      }
+	components: {
+		Circle
+	},
+	mixins: [mixins(NAME)],
+	route: {
+		data() {
+			this.getUserInfo()
+		},
+		canReuse({
+			to
+		}) {
+			this.RESET(to.path)
+			if (this.breakAjax) this.breakAjax() //中断之前的请求，防止执行回调方法
+			delete this.breakAjax //清除掉上个页面的ajax请求
+			return true
+		}
+	},
+	methods: {
+		getUserInfo() {
+			this.GET_DATA_START()
+			let wxId = this.user.id
+			if (_.has(this.$route.query, 'id')) {
+				wxId = this.$route.query.id
+			}
 
-      Tool.get('WxBus/getUserinfo', {
-        wxId
-      }, (data) => {
-        if (data) {
+			Tool.get('WxBus/getUserinfo', {
+				wxId
+			}, (data) => {
+				if (data) {
 					let isSign = data.isSign
-          let score = data.myTotalScore
-          let rate = data.beatRatio
-          let myTasks = data.myTaskList
-          let myTotalRedPacket = data.myTotalRedPacket
-          let totalTask = myTasks.length
-          let completedTask = _.filter(myTasks, (task) => {
-            return task.taskBusState == 1
-          }).length
+					let score = data.myTotalScore
+					let rate = data.beatRatio
+					let myTasks = data.myTaskList
+					let myTotalRedPacket = data.myTotalRedPacket
+					let totalTask = myTasks.length
+					let completedTask = _.filter(myTasks, (task) => {
+						return task.taskBusState == 1
+					}).length
 
-          let user = _.extend(data.user, {
-            myTotalRedPacket,
-            score,
-            totalTask,
-            completedTask,
-            rate
-          })
-					this.SET_CUSTOM_KEY({
-							// isSign:false
-							isSign
+					let user = _.extend(data.user, {
+						myTotalRedPacket,
+						score,
+						totalTask,
+						completedTask,
+						rate
 					})
-          this.SIGNIN(user)
-          this.GET_DATA_VIEW(user)
-        } else {
-          this.GET_DATA_ERROR({
-            loadTip: '用户不存在'
-          })
-        }
-      }, this.GET_DATA_ERROR)
-    },
-    doSign() {
+					this.SET_CUSTOM_KEY({
+						// isSign: false,
+						isSign,
+					})
+					this.SIGNIN(user)
+					this.GET_DATA_VIEW(user)
+				} else {
+					this.GET_DATA_ERROR({
+						loadTip: '用户不存在'
+					})
+				}
+			}, this.GET_DATA_ERROR)
+		},
+		doSign() {
 			if (this.isSign) return false //防止重复签到
-      let wxId = this.user.id
+			let wxId = this.user.id
 			console.log(this.breakAjax)
-      if (this.breakAjax) return false //请求未结束，防止重复请求
-      this.breakAjax = Tool.post('WxBus/sign', {
-        wxId
-      }, (data) => {
-        delete this.breakAjax
-        if (data.msg == "0") {
-          console.log('已经签到')
-					this.SET_CUSTOM_KEY({
-							signShow: true,
-							isSign:true,
-							addSignSroce: data.msg
-					})
-					setTimeout(()=>{
-						this.SET_CUSTOM_KEY({
-								signShow: false
+			if (this.breakAjax) return false //请求未结束，防止重复请求
+			this.breakAjax = Tool.post('WxBus/sign', {
+				wxId
+			}, (data) => {
+				delete this.breakAjax
+				if (data.msg == "0") {
+						let user = _.extend(JSON.parse(JSON.stringify(this.view)), {
+							score: Number(this.view.score) + Number(data.msg)
 						})
-					},1000)
-        } else {
-          console.log('签到成功')
-					this.SET_CUSTOM_KEY({
-							signShow: true,
-							isSign:true,
-							addSignSroce: data.msg
-					})
-					setTimeout(()=>{
+						this.GET_DATA_VIEW(user)
 						this.SET_CUSTOM_KEY({
-								signShow: false
+								signShow: true,
+								isSign:true,
+								addSignSroce: data.msg
 						})
-					},1000)
-        }
-      }, () => {
-        delete this.breakAjax
-        console.log('签到失败')
-      })
-    }
-  },
-  computed: {
-    showRedPointer() {
-      return this.view.totalTask - this.view.completedTask > 0
-    },
-    getTaskPrecent() {
-      return Number(this.view.completedTask / this.view.totalTask).toFixed(2) * 100
-    },
-    getRatePrecent() {
-      return this.view.rate * 100
-    }
-  }
+						setTimeout(()=>{
+							this.SET_CUSTOM_KEY({
+									signShow: false
+							})
+						},1000)
+				} else {
+					let user = _.extend(JSON.parse(JSON.stringify(this.view)), {
+						score: Number(this.view.score) + Number(data.msg)
+					})
+					this.GET_DATA_VIEW(user)
+					this.SET_CUSTOM_KEY({
+						signShow: true,
+						isSign: true,
+						addSignSroce: data.msg
+					})
+					setTimeout(() => {
+						this.SET_CUSTOM_KEY({
+							signShow: false
+						})
+					}, 1000)
+				}
+			}, () => {
+				delete this.breakAjax
+				console.log('签到失败')
+			})
+		}
+	},
+	computed: {
+		showRedPointer() {
+			return this.view.totalTask - this.view.completedTask > 0
+		},
+		getTaskPrecent() {
+			return Number(this.view.completedTask / this.view.totalTask).toFixed(2) * 100
+		},
+		getRatePrecent() {
+			return this.view.rate * 100
+		}
+	}
 }
 </script>

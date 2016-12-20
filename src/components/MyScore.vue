@@ -8,8 +8,6 @@
 div
   div
     div
-      x-header(style="background-color:#000;", :left-options="{showBack:true,backText:'返回',preventGoBack:true}", @on-click-back="goBack") 我的积分
-    div
       .scoreBg(flex="dir:top main:center cross:center")
         div
           i.iconfont.icon-align-justify(style="font-size: 50px;")

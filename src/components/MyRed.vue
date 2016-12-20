@@ -7,8 +7,6 @@
 <template lang="pug">
 div
   div
-    x-header(style="background-color:#000;", :left-options='{showBack:true,backText:"返回",preventGoBack:true}', @on-click-back="goBack") 我的红包
-  div
     div(flex="dir:top main:center cross:center", style="padding-top:46px;height:150px;background-color:#7998ab;color:#fff;")
       div
         i.iconfont.icon-align-justify(style="font-size: 50px;")
