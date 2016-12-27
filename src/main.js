@@ -80,7 +80,6 @@ router.afterEach((transition) => {
     }
     iframe.addEventListener('load', d)
     document.body.appendChild(iframe)
-
   }
 })
 
