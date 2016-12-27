@@ -59,6 +59,7 @@ export default {
     mixins: [mixins(NAME)],
     route: {
         data() {
+                document.title = '我的红包'
                 this.getTaskLists()
             },
             canReuse({

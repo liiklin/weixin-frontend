@@ -6,7 +6,8 @@ export default [
   'myTasks',//我的任务列表
   'userInfo', //个人中心
   'score', //我的积分
-  'red' //我的红包
+  'red', //我的红包
+  'shop' //积分商城
 ]
 
 //创建每个页面的action

@@ -3,6 +3,7 @@ import tasks from '../components/TaskCenter'
 import user from '../components/UserCenter'
 import score from '../components/MyScore'
 import red from '../components/MyRed'
+import shop from '../components/Shop'
 
 import allTasks from '../components/AllTasks'
 import myTasks from '../components/MyTasks'
@@ -56,6 +57,11 @@ export default {
         // auth: true,
         name: 'red',
         component: red
+      },
+      '/shop': {
+        // auth: true,
+        name: 'shop',
+        component: shop
       }
     }
   }

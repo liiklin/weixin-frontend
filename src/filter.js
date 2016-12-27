@@ -113,3 +113,9 @@ export const prizesTitle = (title,str) => {
 export const isEmpty = (str) =>{
   return _.isEmpty(str)
 }
+
+
+//解析兑换规则
+export const formatExchange = (socre,redpack) =>{
+  return `${socre}兑换${redpack}元红包`
+}

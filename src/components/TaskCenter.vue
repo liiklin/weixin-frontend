@@ -11,7 +11,7 @@ div
     tab(:line-width="2", active-color="#e55652")
       tab-item.vux-center(v-for="item in tabList", v-link="{ name: item,replace: true}", :selected="$route.path.indexOf(item) > -1")
         | {{urlObj[item]}}
-  div(style="padding-top:10%")
+  div(style="padding-top:30px;")
     router-view
 </template>
 

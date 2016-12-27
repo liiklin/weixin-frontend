@@ -66,6 +66,7 @@ export default {
     mixins: [mixins(NAME)],
     route: {
         data() {
+                document.title = '用户中心'
                 this.getTaskLists()
             },
             canReuse({

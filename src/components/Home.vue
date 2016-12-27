@@ -7,7 +7,7 @@
 div
 	#header
 		div(flex="main:center cross:center")
-			.user-icon(v-link="{ path: 'user' }")
+			.user-icon
 				img(v-bind:src="view.wxPhoto", alt="")
 		span#userName(flex="main:center cross:center", v-text="view.name")
 		.signBase(:class="{hasSign:isSign,sign:!isSign}" @click="doSign")
@@ -27,7 +27,7 @@ div
 				.notice(v-show="showRedPointer")
 				span(flex="main:center cross:center")
 					| 任务中心
-		.task-item(flex-box="1", flex="main:center cross:center")
+		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'shop' }")
 			.task-icon(flex="dir:top main:center cross:center")
 				img(src="../assets/icon2.png", alt="")
 				span(flex="main:center cross:center")
@@ -37,7 +37,7 @@ div
 				img(src="../assets/icon3.png", alt="")
 				span(flex="main:center cross:center")
 					| 我的积分
-		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'red' }")
+		.task-item(flex-box="1", flex="main:center cross:center")
 			.task-icon(flex="dir:top main:center cross:center")
 				img(src="../assets/icon4.png", alt="")
 				span(flex="main:center cross:center")
@@ -69,12 +69,12 @@ div
 					span(flex="dir:left main:center cross:center", style="font-size: 12px;color:#999999;")
 						| 击败比
 		.doTask(flex="main:center cross:center")
-			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" v-link="{ name: 'all' }")
-				div(class="btn-top" flex="main:center cross=center" @click="extShowModal = true")
+			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" @click="doExam")
+				div(class="btn-top" flex="main:center cross=center")
 					span
-						| 开启任务赚积分
+						| 考试赚积分
 			div(class="btn" flex-box="1" flex="dir:top main:center cross=center")
-				div(class="btn-top-1" flex="main:center cross=center" @click="rateShowModal = true")
+				div(class="btn-top-1" flex="main:center cross=center")
 					span
 						| 邀请好友赚积分
 </template>
@@ -105,6 +105,7 @@ export default {
 	mixins: [mixins(NAME)],
 	route: {
 		data() {
+			document.title = '我的简报'
 			this.getUserInfo()
 		},
 		canReuse({
@@ -157,6 +158,13 @@ export default {
 					})
 				}
 			}, this.GET_DATA_ERROR)
+		},
+		doExam(){
+			let wxId = this.user.id
+			if (_.has(this.$route.query, 'id')) {
+				wxId = this.$route.query.id
+			}
+			self.location = `http://weixin.7ipr.com/app/weixin/exam/index.html#/?id=${wxId}`
 		},
 		doSign() {
 			if (this.isSign) return false //防止重复签到

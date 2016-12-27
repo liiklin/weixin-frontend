@@ -84,6 +84,7 @@ export default {
     },
     route: {
         data() {
+                document.title = '我的任务'
                 this.getTaskLists()
             },
             canReuse({
