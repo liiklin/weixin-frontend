@@ -17,10 +17,7 @@ div
           .detail(flex="dir:top")
             span(v-text="score.score | formatExchange score.redpack")
           div(flex="main:center cross:center")
-            button.exchange(v-if="user.score > score.score"
-              type="button"
-              @click="scoreExchange(score.score,score.redpack)"
-              ) 兑换
+            button.exchange(v-if="user.score > score.score" type="button" @click="scoreExchange(score.score,score.redpack)") 兑换
             button.disabled(v-else="" type="button") 兑换
 </template>
 
@@ -63,10 +60,9 @@ export default{
   },
   methods:{
     getTaskLists() {
-        if (this.breakAjax) return false //请求未结束，防止重复请求
         this.GET_DATA_START()
 
-        this.breakAjax = Tool.get(`WxBus/getWxExchangeConfig`, {}, (data) => {
+        Tool.get(`WxBus/getWxExchangeConfig`, {}, (data) => {
             if (_.isEmpty(data)) {
               return;
             }
@@ -84,13 +80,13 @@ export default{
         }, this.GET_DATA_ERROR)
     },
     scoreExchange(score,redpack){
+      if(this.breakAjax) return
       let wxId = this.user.id
       if (_.has(this.$route.query,'id')) {
         wxId = this.$route.query.id
       }
 
-      if (this.breakAjax) return false //请求未结束，防止重复请求
-      this.breakAjax = Tool.post(`WxBus/scoreExchange`, {
+      Tool.post(`WxBus/scoreExchange`, {
           wxId,
           score,
           redpack
@@ -99,8 +95,11 @@ export default{
           let user = _.extend(JSON.parse(JSON.stringify(this.view)), {
 						score: Number(this.view.score) + Number(data.msg)
 					})
-					this.GET_DATA_VIEW(user)
-          alert(`兑换成功`)
+					// this.GET_DATA_VIEW(user)
+          this.SIGNIN(user)
+          alert('兑换成功')
+        }else {
+          alert('兑换失败，\n请重试。')
         }
       })
     }

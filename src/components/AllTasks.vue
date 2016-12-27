@@ -99,14 +99,14 @@ export default {
     },
     methods: {
         getTaskLists() {
-                if (this.breakAjax) return false //请求未结束，防止重复请求
                 this.GET_DATA_START()
                 let baseImgUrl = "http://weixin.7ipr.com/app/"
                 let wxId = this.user.id
                 if (_.has(this.$route.query,'id')) {
                   wxId = this.$route.query.id
                 }
-                this.breakAjax = Tool.get(`WxBus/getUserinfo`, {
+
+                Tool.get(`WxBus/getUserinfo`, {
                     wxId
                 }, (data) => {
                     let tasks = _.map(data.allTaskList, (task) => {
@@ -147,11 +147,13 @@ export default {
                 })
             },
             accept(taskId,contentUrl){
+              if(this.breakAjax) return
               let wxId = this.user.id
               if (_.has(this.$route.query,'id')) {
                 wxId = this.$route.query.id
               }
-              Tool.post(`WxBus/accept`, {
+
+              this.breakAjax = Tool.post(`WxBus/accept`, {
                   wxId,
                   taskId
               },(data)=>{

@@ -67,7 +67,20 @@ router.beforeEach(({
 router.afterEach((transition) => {
   commit('UPDATE_LOADING', false)
   if (transition.to.title) {
-      document.title = transition.to.title;
+    let body = document.getElementsByTagName('body')[0],
+      iframe = document.createElement("iframe")
+    document.title = transition.to.title
+    iframe.style.display = "none"
+    // iframe.setAttribute("src", "http://named.cn/page/take/img/icon_phone.png")
+    var d = function() {
+      setTimeout(function() {
+        iframe.removeEventListener('load', d);
+        document.body.removeChild(iframe);
+      }, 0)
+    }
+    iframe.addEventListener('load', d)
+    document.body.appendChild(iframe)
+
   }
 })
 
