@@ -169,7 +169,6 @@ export default {
 		doSign() {
 			if (this.isSign) return false //防止重复签到
 			let wxId = this.user.id
-			// console.log(this.breakAjax)
 			if (this.breakAjax) return false //请求未结束，防止重复请求
 			this.breakAjax = Tool.post('WxBus/sign', {
 				wxId

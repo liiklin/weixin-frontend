@@ -86,12 +86,18 @@ export default{
       if (_.has(this.$route.query,'id')) {
         wxId = this.$route.query.id
       }
-      Tool.post(`WxBus/scoreExchange`, {
+
+      if (this.breakAjax) return false //请求未结束，防止重复请求
+      this.breakAjax = Tool.post(`WxBus/scoreExchange`, {
           wxId,
           score,
           redpack
       },(data)=>{
         if (data.success) {
+          let user = _.extend(JSON.parse(JSON.stringify(this.view)), {
+						score: Number(this.view.score) + Number(data.msg)
+					})
+					this.GET_DATA_VIEW(user)
           alert(`兑换成功`)
         }
       })
