@@ -71,7 +71,7 @@ router.afterEach((transition) => {
       iframe = document.createElement("iframe")
     document.title = transition.to.title
     iframe.style.display = "none"
-    // iframe.setAttribute("src", "http://named.cn/page/take/img/icon_phone.png")
+    iframe.setAttribute("src", "http://named.cn/page/take/img/icon_phone.png")
     var d = function() {
       setTimeout(function() {
         iframe.removeEventListener('load', d);
