@@ -111,7 +111,7 @@ export default {
                     let tasks = _.map(data.myTaskList, (task) => {
                             task.coverUrl = `${baseImgUrl}${task.coverUrl}`
                             return task
-                        })
+                    })
                     //userInfo
                     console.log(JSON.stringify(tasks))
                     let score = data.score
@@ -152,7 +152,7 @@ export default {
                 wxId = this.$route.query.id
               }
               // console.log(contentUrl)
-              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}`
+              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${taskbusId}`
             }
     }
 }

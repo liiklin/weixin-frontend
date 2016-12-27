@@ -13,7 +13,7 @@ div
         img.img(:src="task.coverUrl", lazy="loading")
         .taskTitle
           span.title(v-text="task.name")
-      .taskStatus.taskShared(v-if="task.userId | isEmpty")
+      .taskStatus.taskShared(v-if="task.taskbusId | isEmpty")
         span
           | 未接受
       .taskStatus.taskNotShare(v-else="")
@@ -49,9 +49,9 @@ div
                 span
                   | {{ `好友点击&nbsp;&nbsp;+&nbsp;${showTask.clickScore}` }}
         .allTasks-footer(flex="top:dir main:center cross:center")
-          div(flex-box="1", @click="accept(showTask.id,showTask.contentUrl)", v-if="showTask.userId | isEmpty")
+          div(flex-box="1", @click="accept(showTask.id,showTask.contentUrl)", v-if="showTask.taskbusId | isEmpty")
             span 接收
-          div(flex-box="1", @click="doTask(showTask.id,showTask.contentUrl)", v-else="")
+          div(flex-box="1", @click="doTask(showTask.id,showTask.contentUrl,showTask.taskbusId)", v-else="")
             span 做任务
           div(flex-box="1", @click="closeModal")
             span 取消
@@ -157,16 +157,16 @@ export default {
                   taskId
               },(data)=>{
                 if (data.success) {
-                  self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}`
+                  self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${data.data.id}`
                 }
               })
             },
-            doTask(taskId,contentUrl){
+            doTask(taskId,contentUrl,taskbusId){
               let wxId = this.user.id
               if (_.has(this.$route.query,'id')) {
                 wxId = this.$route.query.id
               }
-              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}`
+              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${taskbusId}`
             }
     }
 }

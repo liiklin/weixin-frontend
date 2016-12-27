@@ -111,7 +111,13 @@ export const prizesTitle = (title,str) => {
 
 //判断是否为空
 export const isEmpty = (str) =>{
-  return _.isEmpty(str)
+  if (typeof(str) == 'object') {
+    return _.isEmpty(str)
+  }else if (typeof(str) == 'number') {
+    return str <= 0
+  }else{
+    return str == ''
+  }
 }
 
 
