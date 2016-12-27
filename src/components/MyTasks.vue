@@ -84,7 +84,6 @@ export default {
     },
     route: {
         data() {
-                document.title = '我的任务'
                 this.getTaskLists()
             },
             canReuse({
@@ -113,7 +112,7 @@ export default {
                             return task
                     })
                     //userInfo
-                    console.log(JSON.stringify(tasks))
+                    // console.log(JSON.stringify(tasks))
                     let score = data.score
                     let myTasks = data.myTaskList
                     let totalTask = myTasks.length

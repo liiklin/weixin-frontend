@@ -19,10 +19,12 @@ export default {
       },
       '/': {
         // auth: true,
+        title: '我的简报',
         component: home
       },
       '/home': {
         // auth: true,
+        title: '我的简报',
         name: 'home',
         component: home
       },
@@ -31,14 +33,17 @@ export default {
         name: 'tasks',
         subRoutes: {
           '/': {
+            title: '全部任务',
             component: allTasks
           },
           '/all': {
             name:'all',
+            title: '全部任务',
             component: allTasks
           },
           '/my': {
             name:'my',
+            title: '我的任务',
             component: myTasks
           }
         }
@@ -46,20 +51,24 @@ export default {
       '/user': {
         // auth: true,
         name: 'user',
+        title: '用户中心',
         component: user
       },
       '/score': {
         // auth: true,
+        title: '我的积分',
         name: 'score',
         component: score
       },
       '/red': {
         // auth: true,
+        title: '我的红包',
         name: 'red',
         component: red
       },
       '/shop': {
         // auth: true,
+        title: '积分商城',
         name: 'shop',
         component: shop
       }

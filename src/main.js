@@ -64,8 +64,11 @@ router.beforeEach(({
   setTimeout(next, 500)
 })
 
-router.afterEach(() => {
+router.afterEach((transition) => {
   commit('UPDATE_LOADING', false)
+  if (transition.to.title) {
+      document.title = transition.to.title;
+  }
 })
 
 // router.beforeEach(({

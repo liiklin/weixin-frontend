@@ -17,7 +17,10 @@ div
           .detail(flex="dir:top")
             span(v-text="score.score | formatExchange score.redpack")
           div(flex="main:center cross:center")
-            button.exchange(v-if="user.score > score.score" type="button" @click="scoreExchange(score.score,score.redpack)") 兑换
+            button.exchange(v-if="user.score > score.score"
+              type="button"
+              @click="scoreExchange(score.score,score.redpack)"
+              ) 兑换
             button.disabled(v-else="" type="button") 兑换
 </template>
 
@@ -47,7 +50,6 @@ export default{
   mixins: [mixins(NAME)],
   route:{
     data() {
-            document.title = '积分商城'
             this.getTaskLists()
         },
         canReuse({

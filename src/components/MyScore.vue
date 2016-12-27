@@ -21,11 +21,13 @@ div
       div
         .scoreDetail(v-for="score in list", flex="main:left box:last")
           .detail(flex="dir:top")
-            span(v-text="score.name | prizesTitle score.getRule")
+            span(v-text="score.name | prizesTitle")
             span
               | {{score.createDate | formatDate}}
           div(flex="main:center cross:center")
-            span.changeScore
+            span.addScore(v-show="score.content.indexOf('-') < 0")
+              | {{score.content | formatNumbers}}
+            span.exChangeScore(v-show="score.content.indexOf('-') > -1")
               | {{score.content | formatNumbers}}
 </template>
 
@@ -61,7 +63,6 @@ export default {
     mixins: [mixins(NAME)],
     route: {
         data() {
-                document.title = '我的积分'
                 this.getTaskLists()
             },
             canReuse({
