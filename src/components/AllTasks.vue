@@ -1,7 +1,7 @@
-<style lang="less">
-@import "../less/taskCenter";
-@import "../less/lazyLoad";
-@import "../less/allTasks";
+<style lang="stylus">
+@import "../stylus/taskCenter";
+@import "../stylus/lazyLoad";
+@import "../stylus/allTasks";
 </style>
 
 <template lang="pug">

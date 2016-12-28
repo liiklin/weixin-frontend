@@ -109,26 +109,6 @@ export default{
 }
 </script>
 
-<style lang="less">
-@import '../less/myScore';
-
-.exchange{
-  background-color: #29c7ff;
-  padding: 0px 5px;
-  border: 1px solid #29c7ff;
-  font-size: 12px;
-  color: #fff;
-  &:hover{
-    background-color: #29c7ff * 0.9;
-    border: 1px solid #29c7ff * 0.9;
-  }
-}
-
-.disabled{
-  background-color: #f2f2f2;
-  padding: 0px 5px;
-  border: 1px solid #f2f2f2;
-  font-size: 12px;
-  color: #fff;
-}
+<style lang="stylus">
+@import '../stylus/shop'
 </style>

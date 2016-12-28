@@ -1,8 +1,6 @@
-<style lang="less" scoped>
-
-@import "../less/taskCenter";
-@import "../less/lazyLoad";
-
+<style lang="stylus" scoped>
+@import "../stylus/taskCenter"
+@import "../stylus/lazyLoad"
 </style>
 
 <template lang="pug">

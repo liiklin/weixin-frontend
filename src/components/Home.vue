@@ -1,6 +1,6 @@
-<style lang="less" scoped>
-@import "../less/home";
-@import "../less/bottun";
+<style lang="stylus" scoped>
+@import "../stylus/home"
+@import "../stylus/button"
 </style>
 
 <template lang="pug">
@@ -23,7 +23,7 @@ div
 	.task-content(flex="main:center cross:center")
 		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'all' }")
 			.task-icon(flex="dir:top main:center cross:center")
-				img(src="../assets/icon1.png", alt="")
+				img(src="../assets/icon1.png")
 				.notice(v-show="showRedPointer")
 				span(flex="main:center cross:center")
 					| 任务中心
@@ -47,34 +47,34 @@ div
 			span(flex="main:center cross:center")
 				| 我的简报
 		div(style="padding: 10px 0;", flex="dir:left main:center cross:center")
-			.briefing-item(flex-box="2", flex="main:center cross:center", v-link="{ name: 'my' }")
-				div(style="max-width:150px;", flex-box="1")
+			.briefing-item(flex="main:center cross:center", v-link="{ name: 'my' }")
+				.briefing-item()
 					circle(:percent="getTaskPrecent", :trail-width="5", :stroke-width="5", stroke-color="#f8b707")
 						span
 							| {{view.completedTask}}个
-					span(flex="dir:left main:center cross:center", style="font-size: 12px;color:#999999;")
+					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
 						| 完成任务
-			.briefing-item(flex-box="3", flex="main:center cross:center", v-link="{ name: 'score' }")
-				div(style="max-width:200px;", flex-box="1")
+			.briefing-item(flex="main:center cross:center", v-link="{ name: 'score' }")
+				.briefing-item-center
 					circle(:percent="50", :trail-width="5", :stroke-width="5", stroke-color="#00adeb")
 						span
 							| {{view.score}}分
-					span(flex="dir:left main:center cross:center", style="font-size: 12px;color:#999999;")
+					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
 						| 获得奖励
-			.briefing-item(flex-box="2", flex="main:center cross:center")
-				div(style="max-width:150px;", flex-box="1")
+			.briefing-item(flex="main:center cross:center")
+				.briefing-item
 					circle(:percent="getRatePrecent", :trail-width="5", :stroke-width="5", stroke-color="#f9343d")
 						span
-							| {{view.rate * 100}}%
-					span(flex="dir:left main:center cross:center", style="font-size: 12px;color:#999999;")
+							| {{view.rate * 100}}
+					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
 						| 击败比
 		.doTask(flex="main:center cross:center")
 			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" @click="doExam")
-				div(class="btn-top" flex="main:center cross=center")
+				div(class="btn-start" flex="main:center cross=center")
 					span
 						| 考试赚积分
 			div(class="btn" flex-box="1" flex="dir:top main:center cross=center")
-				div(class="btn-top-1" flex="main:center cross=center")
+				div(class="btn-rank" flex="main:center cross=center")
 					span
 						| 邀请好友赚积分
 </template>

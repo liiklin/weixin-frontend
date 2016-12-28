@@ -1,0 +1,44 @@
+@import './base'
+
+baseFontColor = #ffffff
+
+.btn
+  position relative
+  -webkit-tap-highlight-color rgba(0,0,0,0)
+  width 100%
+  font-size 16px
+  color baseFontColor
+  // 首页开始考试
+  .btn-start
+    margin 10px
+    background-color #6f9eff
+    border-radius 8px
+    height 40px
+    border-bottom 3px solid #4581e4
+    &:active
+      background-color #6f9eff * 0.9
+      border-bottom 0px
+    span
+      line-height 40px
+      // color #354d6e
+      width 100%
+      text-align center
+      &:active
+        color baseFontColor * 1.2
+  .btn-rank
+    margin 10px
+    background-color #ffb400
+    border-radius 8px
+    height 40px
+    border-bottom 3px solid #ce9100
+    // font-size 16px
+    &:active
+      background-color #ffb400 * 0.9
+      border-bottom 0px
+    span
+      line-height 40px
+      // color baseFontColor
+      width 100%
+      text-align center
+      &:active
+        color baseFontColor * 1.2

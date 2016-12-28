@@ -67,32 +67,24 @@ router.beforeEach(({
 router.afterEach((transition) => {
   commit('UPDATE_LOADING', false)
   if (transition.to.title) {
-    let body = document.getElementsByTagName('body')[0],
-      iframe = document.createElement("iframe")
-    document.title = transition.to.title
-    iframe.style.display = "none"
-    iframe.setAttribute("src", "http://named.cn/page/take/img/icon_phone.png")
-    var d = function() {
-      setTimeout(function() {
-        iframe.removeEventListener('load', d);
-        document.body.removeChild(iframe);
-      }, 0)
-    }
-    iframe.addEventListener('load', d)
-    document.body.appendChild(iframe)
+    setDocumentTitle(transition.to.title)
   }
 })
 
-// router.beforeEach(({
-//   to,
-//   next
-// }) => {
-//   if (to.auth && !app.store.state.user.id) { //验证用户是否登录，用户没有登录则强制跳转到登录页面
-//     router.replace('/signin')
-//   } else {
-//     next()
-//   }
-// })
+let setDocumentTitle = function (title) {
+    document.title = title;
+    let ua = navigator.userAgent;
+    if (/\bMicroMessenger\/([\d\.]+)/.test(ua) && /ip(hone|od|ad)/i.test(ua)) {
+        var i = document.createElement('iframe');
+        i.src = '/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function () {
+            setTimeout(function () {
+                i.remove();
+            }, 9);
+        };
+        document.body.appendChild(i);
+    }
+}
 
-// router.start(Vue.extend({}), '#main')
 router.start(app, '#main')

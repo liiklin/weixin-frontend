@@ -1,7 +1,5 @@
-<style lang="less" scoped>
-
-@import '../less/myRed';
-
+<style lang="stylus" scoped>
+@import '../stylus/myRed'
 </style>
 
 <template lang="pug">
@@ -97,5 +95,4 @@ export default {
 
     }
 }
-
 </script>

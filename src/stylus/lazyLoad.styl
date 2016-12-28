@@ -1,0 +1,21 @@
+.img
+  background-color #fff
+  background-image url("../assets/loading-spin.svg")
+  width 100%
+  display block
+  height 200px
+.img[lazy=loading]
+  background-size 10%
+  background-repeat no-repeat
+  background-position 50%
+  background-color #f1f1f1
+.img[lazy=loaded]
+  background-size cover
+  animation-duration 1s
+  animation-fill-mode both
+  animation-name fadeIn
+.img[lazy=error]
+  border-radius 2px
+  animation-duration 1s
+  animation-fill-mode both
+  animation-name fadeIn

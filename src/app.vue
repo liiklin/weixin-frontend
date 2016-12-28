@@ -1,15 +1,12 @@
-<style media="screen" lang="less">
-@import 'less/transition';
+<style media="screen" lang="stylus">
+@import './stylus/transition'
 </style>
 
-<template>
-
-<div style="height:100%;">
-    <loading :show="isLoading" text="获取数据中..." position="absolute"></loading>
-    <router-view></router-view>
-    <!-- <router-view :transition="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')"></router-view> -->
+<template lang="pug">
+div(style="height:100%;")
+  loading(:show="isLoading" text="获取数据中..." position="absolute")
+  router-view
 </div>
-
 </template>
 
 <script>
@@ -42,5 +39,4 @@ export default {
       }
     }
 }
-
 </script>

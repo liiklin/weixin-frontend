@@ -1,0 +1,41 @@
+@import './base'
+
+.weui_dialog
+  background-color rgba(238, 238, 238, 0) !important
+.allTasks-modal
+  border-radius 10px
+  position relative
+.allTasks-header
+  top -5%
+  width 100%
+  height 50%
+  position absolute
+  img
+    width 50%
+.allTasks-content
+  padding-top 25%
+  border-bottom 1px #ececec solid
+  margin-top 20%
+  border-top-left-radius 10px
+  border-top-right-radius 10px
+  background-color #fafafc
+.allTasks-footer
+  height 50px
+  & > div
+    & > span
+      font-size 12px
+      height 50px
+      line-height 50px
+  div
+    &:nth-child(odd)
+      background-color #ff2178
+      color #fff
+    &:nth-child(odd):active
+      background-color #e61e6c
+      color #fff
+    &:nth-child(even)
+      background-color #f2f2f2
+      color #4a4a4a
+    &:nth-child(even):active
+      background-color #ffffff
+      color #4a4a4a

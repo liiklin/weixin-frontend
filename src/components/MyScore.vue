@@ -1,7 +1,5 @@
-<style lang="less" scoped>
-
-@import '../less/myScore';
-
+<style lang="stylus" scoped>
+@import '../stylus/myScore';
 </style>
 
 <template lang="pug">
