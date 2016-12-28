@@ -23,9 +23,9 @@ div
         .tasksFont
           div
             span(style="color:#ff6a99;")
-              | {{ `点击+${task.clickScore}` }}
+              | 点击+{{ task.clickScore }}
             span(style="color:#ff6a99;")
-              | {{ `&nbsp;分享+${task.shareScore}` }}
+              | &nbsp;点击+{{ task.shareScore }}
         .tasksFont
           span(v-text="task.shareCount || \"0\" ")
           span 人参与●
@@ -44,10 +44,10 @@ div
             div(flex-box="1" flex="dir:left main:center cross:center")
               div(flex-box="1" flex="main:center cross:center")
                 span
-                  | {{ `分享奖励&nbsp;&nbsp;+&nbsp;${showTask.clickScore}` }}
+                  | 分享奖励&nbsp;&nbsp;+&nbsp;{{ showTask.clickScore }}
               div(flex-box="1" flex="main:center cross:center")
                 span
-                  | {{ `好友点击&nbsp;&nbsp;+&nbsp;${showTask.clickScore}` }}
+                  | 好友点击&nbsp;&nbsp;+&nbsp;{{ showTask.clickScore }}
         .allTasks-footer(flex="top:dir main:center cross:center")
           div(flex-box="1", @click="accept(showTask.id,showTask.contentUrl)", v-if="showTask.taskbusId | isEmpty")
             span 接收
