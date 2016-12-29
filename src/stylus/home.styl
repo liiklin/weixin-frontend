@@ -1,7 +1,8 @@
 @import './base'
 
 #header
-  padding 40px 0 30px
+  position relative
+  padding 20px 0 20px
   background #7f3ce6
   background linear-gradient(#7f3ce6 0%, #387ad8 100%)
   width 100%
@@ -17,16 +18,16 @@
   white-space nowrap
   text-align center
 .showSign
-  float right
-  margin-right 4%
   color #66b1ed
   font-size 10px
   text-align center
   line-height 20px
   height 20px
+  position absolute
+  right 80px
+  bottom 10px
 .signBase
-  float right
-  margin-right 5%
+  margin-right 10px
   color #fff
   font-size 10px
   text-align center
@@ -36,9 +37,14 @@
   background #ffb400
 .hasSign
   width 55px
+  position absolute
+  right 6px
+  bottom 10px
 .sign
-  background #ffb400
+  position absolute
   width 45px
+  right 6px
+  bottom 10px
   &:active
     background #e6a200
 .task-content
@@ -72,7 +78,7 @@
   right .12rem
   top 8px
 .my-briefing
-  margin 10px 0
+  margin 5px 0
   background-color #fff
 .my-briefing-top
   padding 10px

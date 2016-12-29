@@ -10,6 +10,7 @@ div
 			.user-icon
 				img(v-bind:src="view.wxPhoto", alt="")
 		span#userName(flex="main:center cross:center", v-text="view.name")
+		.h10
 		.signBase(:class="{hasSign:isSign,sign:!isSign}" @click="doSign")
 			div(v-if="isSign")
 				span
@@ -49,21 +50,21 @@ div
 		div(style="padding: 10px 0;", flex="dir:left main:center cross:center")
 			.briefing-item(flex="main:center cross:center", v-link="{ name: 'my' }")
 				.briefing-item()
-					circle(:percent="getTaskPrecent", :trail-width="5", :stroke-width="5", stroke-color="#f8b707")
+					circle(:percent="getTaskPrecent", :trail-width="strokeWidth", :stroke-width="strokeWidth", stroke-color="#f8b707")
 						span
 							| {{view.completedTask}}个
 					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
 						| 完成任务
 			.briefing-item(flex="main:center cross:center", v-link="{ name: 'score' }")
 				.briefing-item-center
-					circle(:percent="50", :trail-width="5", :stroke-width="5", stroke-color="#00adeb")
+					circle(:percent="50", :trail-width="strokeWidth", :stroke-width="strokeWidth", stroke-color="#00adeb")
 						span
 							| {{view.score}}分
 					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
 						| 获得奖励
 			.briefing-item(flex="main:center cross:center")
 				.briefing-item
-					circle(:percent="getRatePrecent", :trail-width="5", :stroke-width="5", stroke-color="#f9343d")
+					circle(:percent="getRatePrecent", :trail-width="strokeWidth", :stroke-width="strokeWidth", stroke-color="#f9343d")
 						span
 							| {{view.rate}}
 					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
@@ -95,7 +96,8 @@ from 'vux'
 store.dispatch(`${NAME}ADD_CUSTOM_KEY`, {
 	signShow: false,
 	addSignSroce: 0,
-	isSign: false
+	isSign: false,
+	strokeWidth:8,
 })
 
 export default {
@@ -106,6 +108,11 @@ export default {
 	route: {
 		data() {
 			this.getUserInfo()
+			let rem = Number(getComputedStyle(window.document.documentElement)['font-size'].replace('px','')) / 32
+			console.log(5 * rem)
+			this.SET_CUSTOM_KEY({
+				strokeWidth: 8 * rem
+			})
 		},
 		canReuse({
 			to
