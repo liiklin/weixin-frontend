@@ -31,30 +31,31 @@ div
           span 人参与●
           span {{task.state | isFinished }}
   div
-    dialog(:show.sync="isShow", dialog-transition="", :scroll="false")
-      .allTasks-modal
-        .allTasks-content(flex="dir:top main:center cross:center")
-          div(style="padding:10px;")
-            span
-              | 你即将进入活动链接页面，分享后返回任务中心，即可完成任务！
-          div(style="padding:10px;", flex="dir:left main:center cross:center")
-            img(style="width:30px;height:30px;border-radius:5px;", src="../assets/score2.png")
-            span(style="font-size:30px;color:#ffb400;padding-left:10px;", v-text="user.score")
-          div(style="width:100%;padding:10px 0px;", flex="main:center cross:center")
-            div(flex-box="1" flex="dir:left main:center cross:center")
-              div(flex-box="1" flex="main:center cross:center")
-                span
-                  | {{ `分享奖励&nbsp;&nbsp;+&nbsp;${showTask.clickScore}` }}
-              div(flex-box="1" flex="main:center cross:center")
-                span
-                  | {{ `好友点击&nbsp;&nbsp;+&nbsp;${showTask.clickScore}` }}
-        .allTasks-footer(flex="top:dir main:center cross:center")
-          div(flex-box="1", @click="doTask(showTask.id,showTask.taskbusId,showTask.contentUrl)")
-            span 做任务
-          div(flex-box="1", @click="closeModal")
-            span 取消
-      .allTasks-header(flex="dir:top main:center cross:center")
-        img(src="../assets/tips.png")
+  dialog(:show.sync="isShow", dialog-transition="", :scroll="false")
+    .allTasks-modal
+      .h20
+      .h20
+      .allTasks-content(flex="dir:top main:center cross:center")
+        div
+          span 你即将进入活动链接页面，
+          </br>
+          span 分享后返回任务中心，即可完成任务！
+        div(flex="dir:left main:center cross:center")
+          img(style="width:30px;height:30px;border-radius:5px;", src="../assets/score2.png")
+          span(style="font-size:30px;color:#ffb400;padding-left:10px;", v-text="user.score")
+        div(flex="main:center cross:center")
+          div(flex-box="1" flex="dir:left main:center cross:center")
+            div(flex-box="1" flex="main:center cross:center")
+              span 分享奖励&nbsp;&nbsp;+&nbsp;{{ showTask.clickScore }}
+            div(flex-box="1" flex="main:center cross:center")
+              span 好友点击&nbsp;&nbsp;+&nbsp;{{ showTask.clickScore }}
+      .allTasks-footer(flex="top:dir main:center cross:center")
+        div(flex-box="1", @click="doTask(showTask.id,showTask.contentUrl,showTask.taskbusId)", v-else="")
+          span 做任务
+        div(flex-box="1", @click="closeModal")
+          span 取消
+    .allTasks-header(flex="dir:top main:center cross:center")
+      img(src="../assets/tips.png")
 </template>
 
 <script>
