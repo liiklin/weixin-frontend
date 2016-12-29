@@ -65,7 +65,7 @@ div
 				.briefing-item
 					circle(:percent="getRatePrecent", :trail-width="5", :stroke-width="5", stroke-color="#f9343d")
 						span
-							| {{view.rate * 100}}
+							| {{view.rate}}
 					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
 						| 击败比
 		.doTask(flex="main:center cross:center")
@@ -216,10 +216,14 @@ export default {
 			return this.view.totalTask - this.view.completedTask > 0
 		},
 		getTaskPrecent() {
-			return Number(this.view.completedTask / this.view.totalTask).toFixed(2) * 100
+			if (typeof this.view.completedTask !== 'undefined') {
+				return Number(this.view.completedTask / this.view.totalTask).toFixed(2) * 100
+			}
 		},
 		getRatePrecent() {
-			return this.view.rate * 100
+			if (this.view.rate) {
+				return Number(this.view.rate.replace("%",""))
+			}
 		}
 	}
 }
