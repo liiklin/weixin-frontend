@@ -153,7 +153,7 @@ export default {
                   taskId
               },(data)=>{
                 if (data.success) {
-                  self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${data.data.id}`
+                  self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${data.data.id}&type=1`
                 }
               })
             },
@@ -162,7 +162,7 @@ export default {
               if (_.has(this.$route.query,'id')) {
                 wxId = this.$route.query.id
               }
-              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${taskbusId}`
+              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${taskbusId}&type=1`
             }
     }
 }

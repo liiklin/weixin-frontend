@@ -150,7 +150,7 @@ export default {
                 wxId = this.$route.query.id
               }
 
-              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${taskbusId}`
+              self.location = `${contentUrl}?userId=${wxId}&taskId=${taskId}&taskBusId=${taskbusId}&type=1`
             }
     }
 }
