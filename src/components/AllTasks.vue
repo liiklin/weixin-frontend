@@ -29,6 +29,8 @@ div
   div
     dialog(:show.sync="isShow", dialog-transition="", :scroll="false")
       .allTasks-modal
+        .h20
+        .h20
         .allTasks-content(flex="dir:top main:center cross:center")
           div
             span 你即将进入活动链接页面，
