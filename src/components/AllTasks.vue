@@ -14,18 +14,14 @@ div
         .taskTitle
           span.title(v-text="task.name")
       .taskStatus.taskShared(v-if="task.taskbusId | isEmpty")
-        span
-          | 未接受
+        span 未接受
       .taskStatus.taskNotShare(v-else="")
-        span
-          | 已接受
+        span 已接受
       div(flex="main:justify cross:center")
         .tasksFont
           div
-            span(style="color:#ff6a99;")
-              | 点击+{{ task.clickScore }}
-            span(style="color:#ff6a99;")
-              | &nbsp;点击+{{ task.shareScore }}
+            span(style="color:#ff6a99;") 点击+{{ task.clickScore }}
+            span(style="color:#ff6a99;") &nbsp;点击+{{ task.shareScore }}
         .tasksFont
           span(v-text="task.shareCount || \"0\" ")
           span 人参与●
@@ -34,20 +30,19 @@ div
     dialog(:show.sync="isShow", dialog-transition="", :scroll="false")
       .allTasks-modal
         .allTasks-content(flex="dir:top main:center cross:center")
-          div(style="padding:10px;")
-            span
-              | 你即将进入活动链接页面，分享后返回任务中心，即可完成任务！
-          div(style="padding:10px;", flex="dir:left main:center cross:center")
+          div
+            span 你即将进入活动链接页面，
+            </br>
+            span 分享后返回任务中心，即可完成任务！
+          div(flex="dir:left main:center cross:center")
             img(style="width:30px;height:30px;border-radius:5px;", src="../assets/score2.png")
             span(style="font-size:30px;color:#ffb400;padding-left:10px;", v-text="user.score")
-          div(style="width:100%;padding:10px 0px;", flex="main:center cross:center")
+          div(flex="main:center cross:center")
             div(flex-box="1" flex="dir:left main:center cross:center")
               div(flex-box="1" flex="main:center cross:center")
-                span
-                  | 分享奖励&nbsp;&nbsp;+&nbsp;{{ showTask.clickScore }}
+                span 分享奖励&nbsp;&nbsp;+&nbsp;{{ showTask.clickScore }}
               div(flex-box="1" flex="main:center cross:center")
-                span
-                  | 好友点击&nbsp;&nbsp;+&nbsp;{{ showTask.clickScore }}
+                span 好友点击&nbsp;&nbsp;+&nbsp;{{ showTask.clickScore }}
         .allTasks-footer(flex="top:dir main:center cross:center")
           div(flex-box="1", @click="accept(showTask.id,showTask.contentUrl)", v-if="showTask.taskbusId | isEmpty")
             span 接收
