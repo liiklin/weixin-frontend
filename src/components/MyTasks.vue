@@ -145,7 +145,7 @@ export default {
                     showTask: {}
                 })
             },
-            doTask(taskId,taskbusId,contentUrl){
+            doTask(taskId,contentUrl,taskbusId){
               let wxId = this.user.id
               if (_.has(this.$route.query,'id')) {
                 wxId = this.$route.query.id

@@ -135,7 +135,7 @@ export default {
 				wxId
 			}, (data) => {
 				if (data) {
-					console.log(JSON.stringify(data))
+					// console.log(data.myTaskList)
 					let isSign = data.isSign
 					let score = data.myTotalScore
 					let rate = data.beatRatio
@@ -155,7 +155,7 @@ export default {
 					})
 					this.SET_CUSTOM_KEY({
 						// isSign: false,
-						isSign,
+						isSign
 					})
 					this.SIGNIN(user)
 					this.GET_DATA_VIEW(user)
