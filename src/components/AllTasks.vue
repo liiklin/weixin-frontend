@@ -21,7 +21,7 @@ div
         .tasksFont
           div
             span(style="color:#ff6a99;") 点击+{{ task.clickScore }}
-            span(style="color:#ff6a99;") &nbsp;点击+{{ task.shareScore }}
+            span(style="color:#ff6a99;") &nbsp;分享+{{ task.shareScore }}
         .tasksFont
           span(v-text="task.shareCount || \"0\" ")
           span 人参与●
