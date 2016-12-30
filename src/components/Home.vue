@@ -38,7 +38,7 @@ div
 				img(src="../assets/icon3.png", alt="")
 				span(flex="main:center cross:center")
 					| 我的积分
-		.task-item(flex-box="1", flex="main:center cross:center")
+		.task-item(flex-box="1", flex="main:center cross:center" v-show="false")
 			.task-icon(flex="dir:top main:center cross:center")
 				img(src="../assets/icon4.png", alt="")
 				span(flex="main:center cross:center")
@@ -74,7 +74,7 @@ div
 				div(class="btn-start" flex="main:center cross=center")
 					span
 						| 考试赚积分
-			div(class="btn" flex-box="1" flex="dir:top main:center cross=center")
+			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" v-show="false")
 				div(class="btn-rank" flex="main:center cross=center")
 					span
 						| 邀请好友赚积分
@@ -135,6 +135,7 @@ export default {
 				wxId
 			}, (data) => {
 				if (data) {
+					console.log(JSON.stringify(data))
 					let isSign = data.isSign
 					let score = data.myTotalScore
 					let rate = data.beatRatio
