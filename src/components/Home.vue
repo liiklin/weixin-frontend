@@ -8,7 +8,7 @@ div
 	#header
 		div(flex="main:center cross:center")
 			.user-icon
-				img(v-bind:src="view.wxPhoto", alt="")
+				img(v-bind:src="view.wxPhoto")
 		span#userName(flex="main:center cross:center", v-text="view.name")
 		.h10
 		.signBase(:class="{hasSign:isSign,sign:!isSign}" @click="doSign")
@@ -30,17 +30,17 @@ div
 					| 任务中心
 		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'shop' }")
 			.task-icon(flex="dir:top main:center cross:center")
-				img(src="../assets/icon2.png", alt="")
+				img(src="../assets/icon2.png")
 				span(flex="main:center cross:center")
 					| 积分商城
 		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'score' }")
 			.task-icon(flex="dir:top main:center cross:center")
-				img(src="../assets/icon3.png", alt="")
+				img(src="../assets/icon3.png")
 				span(flex="main:center cross:center")
 					| 我的积分
-		.task-item(flex-box="1", flex="main:center cross:center" v-show="false")
+		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'invite' }")
 			.task-icon(flex="dir:top main:center cross:center")
-				img(src="../assets/icon4.png", alt="")
+				img(src="../assets/icon4.png")
 				span(flex="main:center cross:center")
 					| 我的邀请
 	.my-briefing(flex="dir:top main:center")
@@ -74,7 +74,7 @@ div
 				div(class="btn-start" flex="main:center cross=center")
 					span
 						| 考试赚积分
-			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" v-show="false")
+			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" @click="goInvite")
 				div(class="btn-rank" flex="main:center cross=center")
 					span
 						| 邀请好友赚积分
@@ -97,7 +97,7 @@ store.dispatch(`${NAME}ADD_CUSTOM_KEY`, {
 	signShow: false,
 	addSignSroce: 0,
 	isSign: false,
-	strokeWidth:8,
+	strokeWidth: 5,
 })
 
 export default {
@@ -109,9 +109,8 @@ export default {
 		data() {
 			this.getUserInfo()
 			let rem = Number(getComputedStyle(window.document.documentElement)['font-size'].replace('px','')) / 32
-			console.log(5 * rem)
 			this.SET_CUSTOM_KEY({
-				strokeWidth: 8 * rem
+				strokeWidth: 5 * rem
 			})
 		},
 		canReuse({
@@ -176,6 +175,10 @@ export default {
 		doSign() {
 			if (this.isSign) return false //防止重复签到
 			let wxId = this.user.id
+			if (_.has(this.$route.query, 'id')) {
+				wxId = this.$route.query.id
+			}
+
 			if (this.breakAjax) return false //请求未结束，防止重复请求
 			this.breakAjax = Tool.post('WxBus/sign', {
 				wxId
@@ -217,6 +220,14 @@ export default {
 				delete this.breakAjax
 				console.log('签到失败')
 			})
+		},
+		goInvite(){
+			let wxId = this.user.id
+			if (_.has(this.$route.query, 'id')) {
+				wxId = this.$route.query.id
+			}
+
+			self.location = `http://weixin.7ipr.com/app/weixin/qrcode/index.html#/?id=${wxId}`
 		}
 	},
 	computed: {

@@ -7,7 +7,8 @@ export default [
   'userInfo', //个人中心
   'score', //我的积分
   'red', //我的红包
-  'shop' //积分商城
+  'shop', //积分商城
+  'invite', //邀请记录
 ]
 
 //创建每个页面的action

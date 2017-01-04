@@ -61,11 +61,13 @@ router.beforeEach(({
     commit('UPDATE_DIRECTION', 'forward')
   }
   commit('UPDATE_LOADING', true)
-  setTimeout(next, 500)
+  next()
 })
 
 router.afterEach((transition) => {
-  commit('UPDATE_LOADING', false)
+  setTimeout(function(){
+    commit('UPDATE_LOADING', false)
+  }, 600)
   if (transition.to.title) {
     setDocumentTitle(transition.to.title)
   }

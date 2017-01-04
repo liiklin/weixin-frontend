@@ -61,8 +61,12 @@ export default{
   methods:{
     getTaskLists() {
         this.GET_DATA_START()
+        let wxId = this.user.id
+        if (_.has(this.$route.query,'id')) {
+          wxId = this.$route.query.id
+        }
 
-        Tool.get(`WxBus/getWxExchangeConfig`, {}, (data) => {
+        Tool.get(`WxBus/getWxExchangeConfig`, {wxId}, (data) => {
             if (_.isEmpty(data)) {
               return;
             }

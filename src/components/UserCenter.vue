@@ -80,7 +80,12 @@ export default {
             if (this.breakAjax) return false //请求未结束，防止重复请求
             this.GET_DATA_START()
 
-            this.breakAjax = Tool.get(`/red`, {}, (data) => {
+            let wxId = this.user.id
+            if (_.has(this.$route.query,'id')) {
+              wxId = this.$route.query.id
+            }
+
+            this.breakAjax = Tool.get(`/red`, {wxId}, (data) => {
                 this.SET_CUSTOM_KEY({
                     myred: data
                 })

@@ -22,7 +22,7 @@ const PrizesType = {
  * @returns 格式化后的时间
  */
 export const formatDate = (str, format) => {
-  format = format || "YYYY-MM-DD hh:mm"
+  format = format || "YYYY-MM-DD hh:mm Z"
   return moment(str).format(format)
 }
 

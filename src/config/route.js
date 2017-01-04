@@ -7,6 +7,7 @@ import shop from '../components/Shop'
 
 import allTasks from '../components/AllTasks'
 import myTasks from '../components/MyTasks'
+import invite from '../components/Invite'
 
 export default {
   '/': {
@@ -71,6 +72,12 @@ export default {
         title: '积分商城',
         name: 'shop',
         component: shop
+      },
+      '/invite': {
+        // auth: true,
+        title: '全部邀请记录',
+        name: 'invite',
+        component: invite
       }
     }
   }
