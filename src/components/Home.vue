@@ -1,4 +1,5 @@
 <style lang="stylus" scoped>
+@import "../stylus/modal"
 @import "../stylus/home"
 @import "../stylus/button"
 </style>
@@ -13,71 +14,63 @@ div
 		.h10
 		.signBase(:class="{hasSign:isSign,sign:!isSign}" @click="doSign")
 			div(v-if="isSign")
-				span
-					|	已签到
+				span 已签到
 			.vux-reddot-border(v-else="")
-				span
-					| 签到
+				span 签到
 		.showSign(v-if="signShow" transition="fadeUp")
-			span
-				|	{{ `积分+&nbsp;${addSignSroce}` }}
+			span {{ `积分+&nbsp;${addSignSroce}` }}
 	.task-content(flex="main:center cross:center")
 		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'all' }")
 			.task-icon(flex="dir:top main:center cross:center")
 				img(src="../assets/icon1.png")
 				.notice(v-show="showRedPointer")
-				span(flex="main:center cross:center")
-					| 任务中心
+				span(flex="main:center cross:center") 任务中心
 		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'shop' }")
 			.task-icon(flex="dir:top main:center cross:center")
 				img(src="../assets/icon2.png")
-				span(flex="main:center cross:center")
-					| 积分商城
+				span(flex="main:center cross:center") 积分商城
 		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'score' }")
 			.task-icon(flex="dir:top main:center cross:center")
 				img(src="../assets/icon3.png")
-				span(flex="main:center cross:center")
-					| 我的积分
+				span(flex="main:center cross:center") 我的积分
 		.task-item(flex-box="1", flex="main:center cross:center", v-link="{ name: 'invite' }")
 			.task-icon(flex="dir:top main:center cross:center")
 				img(src="../assets/icon4.png")
-				span(flex="main:center cross:center")
-					| 我的邀请
+				span(flex="main:center cross:center") 我的邀请
 	.my-briefing(flex="dir:top main:center")
 		.my-briefing-top(flex="main:center")
-			span(flex="main:center cross:center")
-				| 我的简报
+			span(flex="main:center cross:center") 我的简报
 		div(style="padding: 10px 0;", flex="dir:left main:center cross:center")
 			.briefing-item(flex="main:center cross:center", v-link="{ name: 'my' }")
 				.briefing-item()
 					circle(:percent="getTaskPrecent", :trail-width="strokeWidth", :stroke-width="strokeWidth", stroke-color="#f8b707")
-						span
-							| {{view.completedTask}}个
-					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
-						| 完成任务
+						span {{view.completedTask}}个
+					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;") 完成任务
 			.briefing-item(flex="main:center cross:center", v-link="{ name: 'score' }")
 				.briefing-item-center
 					circle(:percent="50", :trail-width="strokeWidth", :stroke-width="strokeWidth", stroke-color="#00adeb")
-						span
-							| {{view.score}}分
-					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
-						| 获得奖励
-			.briefing-item(flex="main:center cross:center")
+						span {{view.score}}分
+					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;") 获得奖励
+			.briefing-item(flex="main:center cross:center" @click="showRank")
 				.briefing-item
 					circle(:percent="getRatePrecent", :trail-width="strokeWidth", :stroke-width="strokeWidth", stroke-color="#f9343d")
-						span
-							| {{view.rate}}
-					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;")
-						| 击败比
+						span {{view.rate}}
+					span(flex="dir:left main:center cross:center", style="font-size: .375rem;color:#999999;") 击败比
 		.doTask(flex="main:center cross:center")
 			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" @click="doExam")
 				div(class="btn-start" flex="main:center cross=center")
-					span
-						| 考试赚积分
+					span 考试赚积分
 			div(class="btn" flex-box="1" flex="dir:top main:center cross=center" @click="goInvite")
 				div(class="btn-rank" flex="main:center cross=center")
-					span
-						| 邀请好友赚积分
+					span 邀请好友赚积分
+		modal(v-show="rateShowModal" color="#ffb400" height="11.5625rem")
+			img(slot="head-bg" src="../assets/titlebg.png")
+			span(slot="header") 积分排行榜
+			div(slot="body")
+				Vtable(v-bind:list-datas="rankingList" v-bind:titles="titles")
+			div(slot="footer" flex="dir:left main:center cross:center" style="width:100%;")
+				Vbutton(:type="`back`" @click="closeRank")
+					span(slot="buttonTitle") 返回
 </template>
 
 <script>
@@ -93,22 +86,32 @@ import {
 }
 from 'vux'
 
+import Modal from './modal.vue'
+import Vtable from './table.vue'
+import Vbutton from './button.vue'
+
 store.dispatch(`${NAME}ADD_CUSTOM_KEY`, {
 	signShow: false,
 	addSignSroce: 0,
 	isSign: false,
 	strokeWidth: 5,
+	titles: ['排行', '名称', '分数'],
+	rankingList: [],
+	rateShowModal: false,
 })
 
 export default {
 	components: {
-		Circle
+		Circle,
+		Modal,
+		Vtable,
+		Vbutton,
 	},
 	mixins: [mixins(NAME)],
 	route: {
 		data() {
 			this.getUserInfo()
-			let rem = Number(getComputedStyle(window.document.documentElement)['font-size'].replace('px','')) / 32
+			let rem = Number(getComputedStyle(window.document.documentElement)['font-size'].replace('px', '')) / 32
 			this.SET_CUSTOM_KEY({
 				strokeWidth: 5 * rem
 			})
@@ -135,15 +138,22 @@ export default {
 			}, (data) => {
 				if (data) {
 					// console.log(data.myTaskList)
-					let isSign = data.isSign
-					let score = data.myTotalScore
-					let rate = data.beatRatio
-					let myTasks = data.myTaskList
-					let myTotalRedPacket = data.myTotalRedPacket
-					let totalTask = myTasks.length
-					let completedTask = _.filter(myTasks, (task) => {
-						return task.taskBusState == 1
-					}).length
+					let isSign = data.isSign,
+						score = data.myTotalScore,
+						rate = data.beatRatio,
+						myTasks = data.myTaskList,
+						myTotalRedPacket = data.myTotalRedPacket,
+						totalTask = myTasks.length,
+						completedTask = _.filter(myTasks, (task) => {
+							return task.taskBusState == 1
+						}).length,
+						rankingList = _.map(data.scoreRankingList, (value, key) => {
+							return {
+								index: Number(key) + 1,
+								scored: Number(value.score),
+								name: value.userName
+							}
+						})
 
 					let user = _.extend(data.user, {
 						myTotalRedPacket,
@@ -154,7 +164,8 @@ export default {
 					})
 					this.SET_CUSTOM_KEY({
 						// isSign: false,
-						isSign
+						rankingList,
+						isSign,
 					})
 					this.SIGNIN(user)
 					this.GET_DATA_VIEW(user)
@@ -165,7 +176,7 @@ export default {
 				}
 			}, this.GET_DATA_ERROR)
 		},
-		doExam(){
+		doExam() {
 			let wxId = this.user.id
 			if (_.has(this.$route.query, 'id')) {
 				wxId = this.$route.query.id
@@ -185,7 +196,7 @@ export default {
 			}, (data) => {
 				delete this.breakAjax
 				if (data.msg == "0") {
-						console.log('已经签到')
+					console.log('已经签到')
 						// let user = _.extend(JSON.parse(JSON.stringify(this.view)), {
 						// 	score: Number(this.view.score) + Number(data.msg)
 						// })
@@ -221,13 +232,23 @@ export default {
 				console.log('签到失败')
 			})
 		},
-		goInvite(){
+		goInvite() {
 			let wxId = this.user.id
 			if (_.has(this.$route.query, 'id')) {
 				wxId = this.$route.query.id
 			}
 
 			self.location = `http://weixin.7ipr.com/app/weixin/qrcode/index.html#/?id=${wxId}`
+		},
+		showRank(){
+			this.SET_CUSTOM_KEY({
+				rateShowModal:true
+			})
+		},
+		closeRank(){
+			this.SET_CUSTOM_KEY({
+				rateShowModal:false
+			})
 		}
 	},
 	computed: {
@@ -235,13 +256,13 @@ export default {
 			return this.view.totalTask - this.view.completedTask > 0
 		},
 		getTaskPrecent() {
-			if (typeof this.view.completedTask !== 'undefined') {
+			if (this.view.completedTask) {
 				return Number(this.view.completedTask / this.view.totalTask).toFixed(2) * 100
 			}
 		},
 		getRatePrecent() {
 			if (this.view.rate) {
-				return Number(this.view.rate.replace("%",""))
+				return Number(this.view.rate.replace("%", ""))
 			}
 		}
 	}

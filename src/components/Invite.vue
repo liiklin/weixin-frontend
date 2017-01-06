@@ -10,7 +10,7 @@
       .time
         span(v-text="item.time | formatDate")
   .no-invite(v-else="")
-    span 暂时无法邀请记录
+    span 暂时没有邀请记录
   .h10
 </template>
 

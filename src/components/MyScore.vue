@@ -21,7 +21,7 @@ div
           .detail(flex="dir:top")
             span(v-text="score.name | prizesTitle")
             span
-              | {{score.createDate | formatDate}}
+              | {{score.createTime | formatDate}}
           div(flex="main:center cross:center")
             span.addScore(v-show="score.content.indexOf('-') < 0")
               | {{score.content | formatNumbers}}
