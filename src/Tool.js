@@ -22,7 +22,7 @@ Tool.get = (url, query = {}, success = () => {}, error = () => {}, end = () => {
     postData = _.extend(query, {
       _log
     })
-  ajax('GET', config.target + url).query(postData).end((err, res = {}) => {
+  ajax('GET', config.API_ROOT + url).query(postData).end((err, res = {}) => {
     if (!bool) return //防止继续执行回调
     let data = JSON.parse(res.text)
     if (!data.success) error({

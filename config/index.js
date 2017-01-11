@@ -27,7 +27,7 @@ module.exports = {
         changeOrigin: true,
         logLevel: 'debug',
         pathRewrite: {
-          '^/api': '/app'
+          '^/api': '/app/'
         }
       }
     },

@@ -4,7 +4,8 @@ div
     div
       .scoreBg(flex="dir:top main:center cross:center")
         div
-          i.iconfont.icon-align-justify(style="font-size: 50px;")
+          //-i.iconfont.icon-align-justify(style="font-size: 50px;")
+          img(src="~assets/jifen.svg")
         div
           span
             | 积分 
