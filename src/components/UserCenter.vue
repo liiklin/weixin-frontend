@@ -85,7 +85,7 @@ export default {
               wxId = this.$route.query.id
             }
 
-            this.breakAjax = Tool.get(`/red`, {wxId}, (data) => {
+            this.breakAjax = Tool.get(`WxBus/getUserinfo`, {wxId}, (data) => {
                 this.SET_CUSTOM_KEY({
                     myred: data
                 })

@@ -103,7 +103,7 @@ export default {
                   wxId = this.$route.query.id
                 }
 
-                Tool.get(`WxBus/getUserinfo`, {
+                Tool.get(`WxBus/getUserinfoForTask`, {
                     wxId
                 }, (data) => {
                     let tasks = _.map(data.allTaskList, (task) => {

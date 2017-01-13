@@ -133,11 +133,11 @@ export default {
 				wxId = this.$route.query.id
 			}
 
-			Tool.get('WxBus/getUserinfo', {
+			Tool.get('WxBus/getUserinfoForTask', {
 				wxId
 			}, (data) => {
 				if (data) {
-					console.log(data.myTaskList)
+					// console.log(data.myTaskList)
 					let isSign = data.isSign,
 						score = data.myTotalScore,
 						rate = data.beatRatio,

@@ -50,7 +50,7 @@ Tool.post = (url, body = {}, success = () => {}, error = () => {}, end = () => {
     postData = _.extend(body, {
       _log
     })
-  ajax('POST', config.target + url)
+  ajax('POST', config.API_ROOT + url)
     .set('Content-Type', 'application/x-www-form-urlencoded')
     .send(postData)
     .end((err, res = {}) => {
